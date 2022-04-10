@@ -2,13 +2,6 @@ import com.android.build.gradle.BaseExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
 buildscript {
-    val repositoryPaths = listOf(
-        "plugins-gradle",
-        "android-community-libs-mvn",
-        "google-android",
-        "jitpack",
-        "repo1" // Maven Central
-    )
 
     val kotlinVersion by extra("1.6.10")
     val composeVersion by extra("1.1.1")
@@ -67,7 +60,7 @@ val configureAndroidOptions by extra(
 plugins {
     id("com.android.application") version "7.1.2" apply false
     id("com.android.library") version "7.1.2" apply false
-    id("org.jetbrains.kotlin.android") version "1.5.21" apply false
+    id("org.jetbrains.kotlin.android") version "1.6.10" apply false
 }
 
 task("clean", Delete::class) {

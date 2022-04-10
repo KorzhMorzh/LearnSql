@@ -14,3 +14,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "LearnSql"
 include ':app'
+include ':feature-apis:authorizationapi'
+include ':features:authorization'

@@ -10,8 +10,9 @@ buildscript {
         fun ScriptHandlerScope.() {
             dependencies {
                 classpath("com.android.tools.build:gradle:7.1.2")
+                classpath("com.google.dagger:hilt-android-gradle-plugin:2.38.1")
                 classpath(kotlin("gradle-plugin", version = kotlinVersion))
-                classpath(kotlin("serialization", version = kotlinVersion)) // Must be here (not in settings.gradle) for the IDE to detect it
+                classpath(kotlin("serialization", version = kotlinVersion)) // Must be here (not in settings.gradle.kts) for the IDE to detect it
             }
         }
     )
@@ -51,7 +52,7 @@ val configureAndroidOptions by extra(
                 "coreLibraryDesugaring"
             )) {
                 val configuration = configurations.findByName(configName) ?: continue
-//                configuration.dependencies.add(platform(project(":platform")))
+                configuration.dependencies.add(platform(project(":platform")))
                 configuration.dependencies.add(platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.6.0"))
             }
         }

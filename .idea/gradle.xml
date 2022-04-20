@@ -11,10 +11,10 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/feature-apis" />
+            <option value="$PROJECT_DIR$/feature-apis/app-api" />
             <option value="$PROJECT_DIR$/feature-apis/authorizationapi" />
-            <option value="$PROJECT_DIR$/features" />
             <option value="$PROJECT_DIR$/features/authorization" />
+            <option value="$PROJECT_DIR$/platform" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

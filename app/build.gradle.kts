@@ -1,8 +1,11 @@
+import kotlin.io.println
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-kapt")
     id("kotlin-parcelize")
+    id( "dagger.hilt.android.plugin")
 }
 
 val configureAndroidOptions: Project.() -> Unit by rootProject.extra
@@ -30,17 +33,27 @@ android {
     }
 }
 
+kapt {
+    correctErrorTypes = true
+}
+
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.compose.ui:ui:$composeVersion")
-    implementation("androidx.compose.material:material:$composeVersion")
-    implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
-    implementation("androidx.activity:activity-compose:1.4.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
-    debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
+    implementation("androidx.core:core-ktx")
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.material:material")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx")
+    implementation("androidx.activity:activity-compose")
+    implementation("androidx.appcompat:appcompat")
+    implementation("androidx.activity:activity-ktx")
+    debugImplementation("androidx.compose.ui:ui-tooling")
+
+    implementation("com.google.dagger:hilt-android")
+    kapt("com.google.dagger:hilt-android-compiler")
+
+    rootProject.childProjects.filterKeys { it != "app" && it != "unittest"}.values.forEach { childProject ->
+        println(childProject)
+        implementation(childProject)
+    }
 }

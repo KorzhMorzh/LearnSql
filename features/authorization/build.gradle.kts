@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 val configureAndroidOptions: Project.() -> Unit by rootProject.extra
 configureAndroidOptions()
@@ -22,5 +23,5 @@ dependencies {
     implementation("androidx.activity:activity-compose")
     debugImplementation("androidx.compose.ui:ui-tooling")
     implementation("com.google.dagger:dagger")
-    implementation("com.google.dagger:dagger-compiler")
+    kapt("com.google.dagger:dagger-compiler")
 }

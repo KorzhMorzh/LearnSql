@@ -26,8 +26,7 @@ fun LearnSqlApp.initComponentFactory() {
          */
         private val componentMap: Map<KClass<*>, ComponentBuilder<Any>> = mapOf(
             AppComponentApi::class to { appComponentApi },
-
-            //            AuthorizationApi::class to {provide(::provideAuthorizationApi)}
+            AuthorizationApi::class to { provide(::provideAuthorizationApi) }
         )
 
         /**

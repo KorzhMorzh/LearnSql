@@ -5,7 +5,6 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("kotlin-parcelize")
-    id( "dagger.hilt.android.plugin")
 }
 
 val configureAndroidOptions: Project.() -> Unit by rootProject.extra
@@ -47,10 +46,13 @@ dependencies {
     implementation("androidx.activity:activity-compose")
     implementation("androidx.appcompat:appcompat")
     implementation("androidx.activity:activity-ktx")
+    implementation("com.google.code.gson:gson")
+    kapt("com.google.dagger:dagger-compiler")
+    implementation("com.google.dagger:dagger")
     debugImplementation("androidx.compose.ui:ui-tooling")
 
-    implementation("com.google.dagger:hilt-android")
-    kapt("com.google.dagger:hilt-android-compiler")
+//    implementation("com.google.dagger:hilt-android")
+//    kapt("com.google.dagger:hilt-android-compiler")
 
     rootProject.childProjects.filterKeys { it != "app" && it != "unittest"}.values.forEach { childProject ->
         println(childProject)

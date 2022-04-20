@@ -1,8 +1,9 @@
 package ru.learnsql.mobile.di
 
+import android.content.Context
+import dagger.BindsInstance
 import dagger.Component
 import ru.learnsql.app_api.AppComponentApi
-import javax.inject.Qualifier
 import javax.inject.Scope
 import javax.inject.Singleton
 
@@ -13,12 +14,14 @@ annotation class AppScope
 @AppScope
 @Singleton
 @Component(
-    modules = []
+    modules = [AppModule::class, States::class, BindingsAppModule::class]
 )
 interface AppComponent : AppComponentApi {
 
     @Component.Factory
     interface Factory {
-        fun create(): AppComponent
+        fun create(
+            @BindsInstance context: Context
+        ): AppComponent
     }
 }

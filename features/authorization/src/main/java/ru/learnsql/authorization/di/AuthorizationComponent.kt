@@ -4,7 +4,7 @@ import dagger.Component
 import ru.learnsql.app_api.ApiProvider
 import ru.learnsql.authorizationapi.AuthorizationApi
 
-@Component()
+@Component(modules = [AuthorizationModule::class])
 interface AuthorizationComponent {
     @Component.Factory
     interface Factory {
@@ -13,7 +13,7 @@ interface AuthorizationComponent {
     }
 }
 
-@Component
+@Component(modules = [AuthorizationModule::class])
 interface AuthorizationExposeComponent : ApiProvider<AuthorizationApi> {
 
     @Component.Factory

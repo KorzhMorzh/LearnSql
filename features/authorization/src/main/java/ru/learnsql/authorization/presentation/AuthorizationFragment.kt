@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.SpaceBetween
 import androidx.compose.foundation.layout.Column
@@ -14,7 +15,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
@@ -25,7 +25,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import ru.learnsql.app_api.getAppComponentApi
-import ru.learnsql.app_api.theme.DarkBlue
+import ru.learnsql.app_api.theme.BlueGradient
 import ru.learnsql.app_api.theme.LearnSqlTheme
 import ru.learnsql.app_api.theme.WhiteGray
 import ru.learnsql.authorization.R.string
@@ -50,11 +50,15 @@ class AuthorizationFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setContent {
                 LearnSqlTheme {
-                    Surface(modifier = Modifier.fillMaxSize(), color = DarkBlue) {
+                    Surface(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
                         Column(
                             verticalArrangement = Arrangement.Center,
                             horizontalAlignment = CenterHorizontally,
-                            modifier = Modifier.padding(start = 25.dp, end = 25.dp, bottom = 40.dp),
+                            modifier = Modifier
+                                .background(brush = BlueGradient)
+                                .padding(start = 25.dp, end = 25.dp, bottom = 40.dp)
                         ) {
                             Image(
                                 painter = painterResource(id = drawable.ic_learnsql),

@@ -46,7 +46,7 @@ class AuthorizationFragment : Fragment() {
         DaggerAuthorizationComponent.factory().create(getAppComponentApi()).inject(this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return ComposeView(requireContext()).apply {
             setContent {
                 LearnSqlTheme {

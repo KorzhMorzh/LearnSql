@@ -9,7 +9,6 @@ interface AuthorizationApi {
     fun getRetrofit(): Retrofit
 
     fun startLoginFragment(context: Context)
-    fun quitToLoginFragment(context: Context)
 
     suspend fun logout()
 }

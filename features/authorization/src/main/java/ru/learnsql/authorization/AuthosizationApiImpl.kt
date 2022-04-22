@@ -16,11 +16,7 @@ class AuthorizationApiImpl @Inject internal constructor(
 
     override fun getRetrofit() = retrofit
     override fun startLoginFragment(context: Context) {
-        TODO()
-    }
-
-    override fun quitToLoginFragment(context: Context) {
-        TODO()
+        TODO("start login fragment")
     }
 
     override suspend fun logout() {

@@ -16,6 +16,7 @@ dependencies {
         api("androidx.compose.material:material:$composeVersion")
         api("androidx.compose.runtime:runtime-livedata:$composeVersion")
         api("androidx.compose.ui:ui-tooling:$composeVersion")
+        api("androidx.compose.ui:ui-tooling-preview:$composeVersion")
         api("androidx.compose.ui:ui-test-junit4:$composeVersion")
         api("androidx.compose.ui:ui-test:$composeVersion")
         api("androidx.compose.ui:ui-test-junit4:$composeVersion")

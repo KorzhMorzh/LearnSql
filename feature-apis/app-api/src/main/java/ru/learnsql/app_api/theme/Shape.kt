@@ -1,4 +1,4 @@
-package ru.learnsql.mobile.ui.theme
+package ru.learnsql.app_api.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

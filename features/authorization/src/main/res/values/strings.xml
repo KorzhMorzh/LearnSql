@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="learnSql">LEARNSQL</string>
+    <string name="login_placeholder">name@mail.com</string>
+    <string name="password_placeholder">пароль</string>
+    <string name="login">Войти</string>
+    <string name="signup">Регистрация</string>
+    <string name="forget_password">Забыли пароль?</string>
+</resources>

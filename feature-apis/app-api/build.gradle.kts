@@ -7,6 +7,16 @@ plugins {
 
 val configureAndroidOptions: Project.() -> Unit by rootProject.extra
 configureAndroidOptions()
+val composeVersion: String by rootProject.extra
+
+android {
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = composeVersion
+    }
+}
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7")
@@ -18,4 +28,7 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor")
     kapt("com.google.dagger:dagger-compiler")
     implementation("com.google.dagger:dagger")
+
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.material:material")
 }

@@ -18,10 +18,9 @@ rootProject.name = "LearnSql"
 
 include(":app")
 include(":platform")
-include(":appnetwork")
 
 val rootDir = rootProject.projectDir
-listOf("features", "feature-apis").forEach { dirName ->
+listOf("features", "feature-apis", "libraries").forEach { dirName ->
     Files.list(rootDir.resolve(dirName).toPath())
         .filter { Files.isDirectory(it) }
         .forEach { module ->

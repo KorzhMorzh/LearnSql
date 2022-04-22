@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.OutlinedTextField
@@ -20,10 +22,14 @@ import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterEnd
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import ru.learnsql.app_api.theme.Gray
 import ru.learnsql.app_api.theme.LearnSqlTheme
@@ -37,9 +43,13 @@ fun InputField(
     @DrawableRes leadingIcon: Int,
     @StringRes placeholder: Int,
     modifier: Modifier = Modifier,
+    keyboardOptions: KeyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+    trailingIcon: @Composable (() -> Unit) = {},
+    visualTransformation: VisualTransformation = VisualTransformation.None,
     isError: Boolean = false,
     onValueChange: (String) -> Unit
 ) {
+    val focusManager = LocalFocusManager.current
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
@@ -69,6 +79,7 @@ fun InputField(
                 )
             }
         },
+        trailingIcon = trailingIcon,
         placeholder = {
             Text(text = stringResource(id = placeholder), color = Gray, style = LearnSqlTheme.typography.body1)
         },
@@ -81,7 +92,14 @@ fun InputField(
         isError = isError,
         shape = RoundedCornerShape(6.dp),
         singleLine = true,
-        textStyle = LearnSqlTheme.typography.body1
+        textStyle = LearnSqlTheme.typography.body1,
+        keyboardOptions = keyboardOptions,
+        keyboardActions = KeyboardActions(
+            onNext = {
+                focusManager.moveFocus(FocusDirection.Down)
+            }
+        ),
+        visualTransformation = visualTransformation
     )
 }
 

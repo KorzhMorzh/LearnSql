@@ -13,13 +13,22 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.IconButton
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -53,6 +62,7 @@ class AuthorizationFragment : Fragment() {
                     Surface(
                         modifier = Modifier.fillMaxSize()
                     ) {
+                        var passwordVisible: Boolean by rememberSaveable { mutableStateOf(false) }
                         Column(
                             verticalArrangement = Arrangement.Center,
                             horizontalAlignment = CenterHorizontally,
@@ -76,6 +86,16 @@ class AuthorizationFragment : Fragment() {
                                 modifier = Modifier.padding(top = 20.dp),
                                 leadingIcon = drawable.ic_lock,
                                 placeholder = string.password_placeholder,
+                                trailingIcon = {
+                                    IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                                        Image(
+                                            painter = painterResource(id = if (passwordVisible) drawable.ic_password_on else drawable.ic_password_off),
+                                            contentDescription = ""
+                                        )
+                                    }
+                                },
+                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                                visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                                 onValueChange = { viewModel.onPasswordChange(it) }
                             )
                             AccentButton(

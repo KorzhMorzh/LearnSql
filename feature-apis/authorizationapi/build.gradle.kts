@@ -11,4 +11,5 @@ dependencies {
     implementation("androidx.core:core-ktx")
     implementation("androidx.appcompat:appcompat")
     implementation("com.google.android.material:material")
+    implementation("com.squareup.retrofit2:retrofit")
 }

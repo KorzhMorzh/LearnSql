@@ -1,0 +1,4 @@
+package ru.learnsql.app_api.config
+
+const val OAUTH_CLIENT_ID = "RdseeDOjoi0BqP130DjBR1d84cGd7ZVs5rCQyjYo"
+const val OAUTH_CLIENT_SECRET = "v9AxhQhn6ciPbRbZ2QYwewG6q9JAgtHQqnRHZNYBOEHM1HtbbvxZjNACnf0ODU2tMqk0zYyVfNDpQFvCSbpM8Z1w5zT6vW9BMXS5ey9lE4v2EzJb7OzKTVTjxQglmACY"

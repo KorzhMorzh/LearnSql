@@ -6,7 +6,13 @@ import ru.learnsql.app_api.AppComponentApi
 import ru.learnsql.app_api.ComponentApiException
 import ru.learnsql.app_api.ComponentApiFactory
 import ru.learnsql.authorizationapi.AuthorizationApi
+import ru.learnsql.courses_api.CoursesApi
+import ru.learnsql.methodic_api.MethodologyApi
 import ru.learnsql.mobile.LearnSqlApp
+import ru.learnsql.navigation_api.NavigationApi
+import ru.learnsql.profile_api.ProfileApi
+import ru.learnsql.settings_api.SettingsApi
+import ru.learnsql.task_api.TaskApi
 import kotlin.reflect.KClass
 
 typealias ComponentBuilder<T> = () -> T
@@ -26,7 +32,13 @@ fun LearnSqlApp.initComponentFactory() {
          */
         private val componentMap: Map<KClass<*>, ComponentBuilder<Any>> = mapOf(
             AppComponentApi::class to { appComponentApi },
-            AuthorizationApi::class to { provide(::provideAuthorizationApi) }
+            AuthorizationApi::class to { providePersistable(AuthorizationApi::class, ::provideAuthorizationApi) },
+            CoursesApi::class to { provide(::provideCourseApi)},
+            MethodologyApi::class to { provide(::provideMethodologyApi)},
+            NavigationApi::class to { provide(::provideNavigationApi)},
+            ProfileApi::class to { provide(::provideProfileApi)},
+            SettingsApi::class to { provide(::provideSettingsApi)},
+            TaskApi::class to { provide(::provideTaskApi)},
         )
 
         /**

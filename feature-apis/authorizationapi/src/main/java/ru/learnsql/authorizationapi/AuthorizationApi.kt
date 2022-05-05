@@ -9,7 +9,5 @@ interface AuthorizationApi {
     fun getOkHttpClient(): OkHttpClient
     fun getRetrofit(): Retrofit
 
-    fun startLoginFragment(navController: NavController)
-
     suspend fun logout()
 }

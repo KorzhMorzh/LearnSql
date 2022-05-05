@@ -15,9 +15,6 @@ class AuthorizationApiImpl @Inject internal constructor(
     override fun getOkHttpClient() = okHttpClient
 
     override fun getRetrofit() = retrofit
-    override fun startLoginFragment(navController: NavController) {
-        navController.navigate(R.id.authorizationFragment)
-    }
 
     override suspend fun logout() {
         TODO("Not yet implemented")

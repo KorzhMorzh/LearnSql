@@ -4,6 +4,10 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/courses_nav_graph"
     >
+    <action
+        android:id="@+id/toAuthorizationFragment"
+        app:destination="@id/authorization_nav_graph"
+        />
 
     <include app:graph="@navigation/authorization_nav_graph"/>
     <include app:graph="@navigation/courses_nav_graph"/>

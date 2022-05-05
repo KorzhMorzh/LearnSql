@@ -28,11 +28,9 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
 
         findViewById<BottomNavigationView>(R.id.bottom_nav).setupWithNavController(navController)
-
-        val factory = getComponentApiFactory()
-
-        if (stateProvider.token.hasToken()) {
-            requireApi(factory[AuthorizationApi::class]).startLoginFragment(navController)
+        
+        if (!stateProvider.token.hasToken()) {
+            navController.navigate(R.id.toAuthorizationFragment)
         }
     }
 }

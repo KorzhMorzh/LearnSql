@@ -9,6 +9,7 @@ import ru.learnsql.authorizationapi.AuthorizationApi
 import ru.learnsql.courses_api.CoursesApi
 import ru.learnsql.methodic_api.MethodologyApi
 import ru.learnsql.mobile.LearnSqlApp
+import ru.learnsql.navigation_api.NavigationApi
 import ru.learnsql.profile_api.ProfileApi
 import ru.learnsql.settings_api.SettingsApi
 import ru.learnsql.task_api.TaskApi
@@ -34,6 +35,7 @@ fun LearnSqlApp.initComponentFactory() {
             AuthorizationApi::class to { providePersistable(AuthorizationApi::class, ::provideAuthorizationApi) },
             CoursesApi::class to { provide(::provideCourseApi) },
             MethodologyApi::class to { provide(::provideMethodologyApi) },
+            NavigationApi::class to { provide(::provideNavigationApi) },
             ProfileApi::class to { provide(::provideProfileApi) },
             SettingsApi::class to { provide(::provideSettingsApi) },
             TaskApi::class to { provide(::provideTaskApi) },

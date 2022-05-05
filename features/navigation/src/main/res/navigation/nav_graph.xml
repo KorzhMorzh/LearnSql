@@ -9,6 +9,14 @@
         app:destination="@id/authorization_nav_graph"
         />
 
+    <action
+        android:id="@+id/toMainScreen"
+        app:destination="@id/courses_nav_graph"
+        app:launchSingleTop="true"
+        app:popUpTo="@+id/nav_graph"
+        app:popUpToInclusive="true"
+        />
+
     <include app:graph="@navigation/authorization_nav_graph"/>
     <include app:graph="@navigation/courses_nav_graph"/>
     <include app:graph="@navigation/methodology_nav_graph"/>

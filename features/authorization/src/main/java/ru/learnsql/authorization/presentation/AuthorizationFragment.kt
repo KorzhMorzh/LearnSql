@@ -19,6 +19,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
@@ -33,32 +34,52 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import ru.learnsql.app_api.apiFactory
 import ru.learnsql.app_api.getAppComponentApi
+import ru.learnsql.app_api.requireApi
 import ru.learnsql.app_api.theme.BlueGradient
 import ru.learnsql.app_api.theme.LearnSqlTheme
 import ru.learnsql.app_api.theme.WhiteGray
 import ru.learnsql.authorization.R.string
 import ru.learnsql.authorization.di.DaggerAuthorizationComponent
+import ru.learnsql.authorization.presentation.AuthorizationNavigationEvent.OpenMain
+import ru.learnsql.authorization.presentation.AuthorizationNavigationEvent.OpenRegistration
 import ru.learnsql.compose.AccentButton
 import ru.learnsql.compose.InputField
 import ru.learnsql.compose.R.drawable
+import ru.learnsql.navigation_api.NavigationApi
 import javax.inject.Inject
 
 class AuthorizationFragment : Fragment() {
     @Inject
     internal lateinit var modelFactory: ViewModelProvider.Factory
 
+    @Inject
+    internal lateinit var navigationApi: NavigationApi
+
     private val viewModel by viewModels<AuthorizationViewModel> { modelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DaggerAuthorizationComponent.factory().create(getAppComponentApi()).inject(this)
+        DaggerAuthorizationComponent.factory().create(
+            getAppComponentApi(),
+            requireApi(apiFactory[NavigationApi::class])
+        ).inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return ComposeView(requireContext()).apply {
             setContent {
                 LearnSqlTheme {
+                    val state = viewModel.state
+                    when (state.navigationEvent) {
+                        OpenMain -> navigationApi.openMainScreen(findNavController())
+                        OpenRegistration -> TODO()
+                    }
+                    val screenState = remember(key1 = state.screenState) {
+                        state.screenState
+                    }
                     Surface(
                         modifier = Modifier.fillMaxSize()
                     ) {
@@ -76,13 +97,13 @@ class AuthorizationFragment : Fragment() {
                                 modifier = Modifier.align(CenterHorizontally)
                             )
                             InputField(
-                                value = viewModel.username.value,
+                                value = screenState.username,
                                 modifier = Modifier.padding(top = 20.dp),
                                 leadingIcon = drawable.ic_letter,
                                 placeholder = string.login_placeholder,
                                 onValueChange = { viewModel.onUsernameChange(it) })
                             InputField(
-                                value = viewModel.password.value,
+                                value = screenState.password,
                                 modifier = Modifier.padding(top = 20.dp),
                                 leadingIcon = drawable.ic_lock,
                                 placeholder = string.password_placeholder,

@@ -4,6 +4,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
+import ru.learnsql.app_api.AppComponentApi
 import ru.learnsql.authorizationapi.AuthorizationApi
 import ru.learnsql.navigation.NavigationApiImpl
 import ru.learnsql.navigation_api.NavigationApi
@@ -16,6 +17,9 @@ internal class NavigationModule {
     @Provides
     fun provideAuthenticatedRetrofit(authorizationApi: AuthorizationApi): Retrofit =
         authorizationApi.getRetrofit()
+
+    @Provides
+    fun provideTokenState(appComponentApi: AppComponentApi) = appComponentApi.tokenState()
 }
 
 @Module

@@ -21,6 +21,7 @@
         <entry key="features/navigation/src/main/res/drawable/ic_courses.xml" value="0.1805" />
         <entry key="features/navigation/src/main/res/drawable/ic_methodology.xml" value="0.1" />
         <entry key="features/navigation/src/main/res/drawable/ic_settings.xml" value="0.1805" />
+        <entry key="features/navigation/src/main/res/drawable/selected_menu_background.xml" value="0.1" />
         <entry key="features/navigation/src/main/res/menu/bottom_navigation.xml" value="0.2935185185185185" />
         <entry key="libraries/compose/src/main/res/drawable/ic_learnsql.xml" value="0.1" />
       </map>

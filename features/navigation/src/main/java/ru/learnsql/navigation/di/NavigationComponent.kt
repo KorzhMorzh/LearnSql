@@ -5,6 +5,7 @@ import dagger.Component
 import ru.learnsql.app_api.ApiProvider
 import ru.learnsql.app_api.AppComponentApi
 import ru.learnsql.authorizationapi.AuthorizationApi
+import ru.learnsql.navigation.NavigationActivity
 import ru.learnsql.navigation_api.NavigationApi
 
 @Component(
@@ -14,6 +15,7 @@ import ru.learnsql.navigation_api.NavigationApi
     ]
 )
 internal interface NavigationComponent {
+    fun inject(navigationActivity: NavigationActivity)
 
     @Component.Factory
     interface Factory {

@@ -48,8 +48,6 @@ dependencies {
     implementation("androidx.appcompat:appcompat")
     implementation("androidx.activity:activity-ktx")
     implementation("com.google.code.gson:gson")
-    implementation("androidx.navigation:navigation-fragment-ktx")
-    implementation("androidx.navigation:navigation-ui-ktx")
     kapt("com.google.dagger:dagger-compiler")
     implementation("com.google.dagger:dagger")
     debugImplementation("androidx.compose.ui:ui-tooling")

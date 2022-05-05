@@ -19,6 +19,7 @@ android {
 dependencies {
     implementation(project(":authorizationapi"))
     implementation(project(":app-api"))
+    implementation(project(":navigation-api"))
     implementation(project(":compose"))
 
     implementation("androidx.core:core-ktx")

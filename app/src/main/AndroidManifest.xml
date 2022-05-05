@@ -15,7 +15,7 @@
         android:theme="@style/Theme.LearnSql"
         >
         <activity
-            android:name=".SplashActivity"
+            android:name=".presentation.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.LearnSql.Splash"
             >
@@ -27,7 +27,7 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
+            android:name="ru.learnsql.navigation.NavigationActivity"
             android:exported="true"
             android:theme="@style/Theme.LearnSql.Main"
             />

@@ -35,7 +35,7 @@ fun LearnSqlApp.initComponentFactory() {
             AuthorizationApi::class to { providePersistable(AuthorizationApi::class, ::provideAuthorizationApi) },
             CoursesApi::class to { provide(::provideCourseApi) },
             MethodologyApi::class to { provide(::provideMethodologyApi) },
-            NavigationApi::class to { provide(::provideNavigationApi) },
+            NavigationApi::class to { providePersistable(NavigationApi::class, ::provideNavigationApi) },
             ProfileApi::class to { provide(::provideProfileApi) },
             SettingsApi::class to { provide(::provideSettingsApi) },
             TaskApi::class to { provide(::provideTaskApi) },

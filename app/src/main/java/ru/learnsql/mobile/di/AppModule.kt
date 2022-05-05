@@ -11,6 +11,8 @@ import ru.learnsql.app_api.state.StateProvider
 import ru.learnsql.app_api.state.TokenState
 import ru.learnsql.appnetwork.RetrofitFactoryImpl
 import ru.learnsql.mobile.state.StateProviderImpl
+import ru.learnsql.navigation.NavigationApiImpl
+import ru.learnsql.navigation_api.NavigationApi
 import javax.inject.Singleton
 
 @Module
@@ -26,6 +28,9 @@ internal abstract class BindingsAppModule {
     @Binds
     @Singleton
     abstract fun provideStateProvider(stateProvider: StateProviderImpl): StateProvider
+
+    @Binds
+    abstract fun provideNavigationApi(navigationApiImpl: NavigationApiImpl): NavigationApi
 }
 
 @Module

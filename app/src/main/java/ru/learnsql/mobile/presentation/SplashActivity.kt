@@ -1,9 +1,11 @@
-package ru.learnsql.mobile
+package ru.learnsql.mobile.presentation
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.fragment.app.FragmentActivity
+import ru.learnsql.app_api.apiFactory
+import ru.learnsql.app_api.requireApi
+import ru.learnsql.navigation_api.NavigationApi
 
 class SplashActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -11,7 +13,7 @@ class SplashActivity : FragmentActivity() {
 
         Handler(mainLooper)
             .postDelayed({
-                startActivity(Intent(this, MainActivity::class.java))
+                requireApi(apiFactory[NavigationApi::class]).openMainActivity(this)
                 finish()
             }, 1000)
     }

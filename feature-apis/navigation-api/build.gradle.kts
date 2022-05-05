@@ -12,4 +12,6 @@ dependencies {
     implementation("androidx.appcompat:appcompat")
     implementation("com.google.android.material:material")
     implementation("com.squareup.retrofit2:retrofit")
+    implementation("androidx.navigation:navigation-fragment-ktx")
+    implementation("androidx.navigation:navigation-ui-ktx")
 }

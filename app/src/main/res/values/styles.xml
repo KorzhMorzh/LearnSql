@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.LearnSql.Splash" parent="Theme.LearnSql">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
+
+    <style name="Theme.LearnSql.Main" parent="Theme.LearnSql">
+
+    </style>
+</resources>

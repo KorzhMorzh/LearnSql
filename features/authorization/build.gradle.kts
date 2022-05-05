@@ -30,6 +30,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx")
     implementation("androidx.fragment:fragment-ktx")
     implementation("androidx.activity:activity-compose")
+    implementation("androidx.navigation:navigation-fragment-ktx")
+    implementation("androidx.navigation:navigation-ui-ktx")
     debugImplementation("androidx.compose.ui:ui-tooling")
     implementation("com.google.dagger:dagger")
     kapt("com.google.dagger:dagger-compiler")

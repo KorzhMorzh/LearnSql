@@ -21,10 +21,6 @@ val Activity.apiFactory: ComponentApiFactory
 val Fragment.apiFactory: ComponentApiFactory
     get() = (requireActivity().application as AppProvider).componentApiFactory
 
-fun Service.getComponentApiFactory(): ComponentApiFactory {
-    return (application as AppProvider).componentApiFactory
-}
-
 fun Fragment.getAppComponentApi(): AppComponentApi {
     return requireApi(getComponentApiFactory()[AppComponentApi::class])
 }
@@ -35,14 +31,6 @@ fun AppCompatActivity.getAppComponentApi(): AppComponentApi {
 
 fun Activity.getAppComponentApi(): AppComponentApi {
     return requireApi(getComponentApiFactory()[AppComponentApi::class])
-}
-
-fun Service.getAppComponentApi(): AppComponentApi {
-    return requireApi(getComponentApiFactory()[AppComponentApi::class])
-}
-
-fun FragmentActivity.getAppComponent(): AppComponentApi? {
-    return (application as? AppProvider)?.componentApiFactory?.get(AppComponentApi::class)
 }
 
 fun Application.getAppComponent(): AppComponentApi {

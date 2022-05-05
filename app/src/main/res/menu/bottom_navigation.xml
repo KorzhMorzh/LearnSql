@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <item
+        android:id="@id/methodology_nav_graph"
+        android:icon="@drawable/ic_methodology"
+        android:title="@string/menu_methodology"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@id/courses_nav_graph"
+        android:icon="@drawable/ic_courses"
+        android:title="@string/menu_courses"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@id/settings_nav_graph"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/menu_settings"
+        app:showAsAction="ifRoom" />
+
+</menu>

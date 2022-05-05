@@ -38,4 +38,6 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit")
     implementation("com.squareup.retrofit2:converter-gson")
     implementation("com.google.code.gson:gson")
+    implementation("androidx.navigation:navigation-fragment-ktx")
+    implementation("androidx.navigation:navigation-ui-ktx")
 }

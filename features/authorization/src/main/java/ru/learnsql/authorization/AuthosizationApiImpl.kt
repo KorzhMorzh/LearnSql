@@ -1,6 +1,6 @@
 package ru.learnsql.authorization
 
-import android.content.Context
+import androidx.navigation.NavController
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import ru.learnsql.authorization.di.Authenticated
@@ -15,8 +15,8 @@ class AuthorizationApiImpl @Inject internal constructor(
     override fun getOkHttpClient() = okHttpClient
 
     override fun getRetrofit() = retrofit
-    override fun startLoginFragment(context: Context) {
-        TODO("start login fragment")
+    override fun startLoginFragment(navController: NavController) {
+        navController.navigate(R.id.authorizationFragment)
     }
 
     override suspend fun logout() {

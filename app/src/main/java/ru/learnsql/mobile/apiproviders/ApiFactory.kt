@@ -9,7 +9,6 @@ import ru.learnsql.authorizationapi.AuthorizationApi
 import ru.learnsql.courses_api.CoursesApi
 import ru.learnsql.methodic_api.MethodologyApi
 import ru.learnsql.mobile.LearnSqlApp
-import ru.learnsql.navigation_api.NavigationApi
 import ru.learnsql.profile_api.ProfileApi
 import ru.learnsql.settings_api.SettingsApi
 import ru.learnsql.task_api.TaskApi
@@ -17,7 +16,7 @@ import kotlin.reflect.KClass
 
 typealias ComponentBuilder<T> = () -> T
 
-private val CRITICAL_APIS = setOf<KClass<Any>>()
+private val CRITICAL_APIS = setOf(AppComponentApi::class, AuthorizationApi::class)
 
 fun LearnSqlApp.initComponentFactory() {
     componentApiFactory = object : ComponentApiFactory {
@@ -33,12 +32,11 @@ fun LearnSqlApp.initComponentFactory() {
         private val componentMap: Map<KClass<*>, ComponentBuilder<Any>> = mapOf(
             AppComponentApi::class to { appComponentApi },
             AuthorizationApi::class to { providePersistable(AuthorizationApi::class, ::provideAuthorizationApi) },
-            CoursesApi::class to { provide(::provideCourseApi)},
-            MethodologyApi::class to { provide(::provideMethodologyApi)},
-            NavigationApi::class to { provide(::provideNavigationApi)},
-            ProfileApi::class to { provide(::provideProfileApi)},
-            SettingsApi::class to { provide(::provideSettingsApi)},
-            TaskApi::class to { provide(::provideTaskApi)},
+            CoursesApi::class to { provide(::provideCourseApi) },
+            MethodologyApi::class to { provide(::provideMethodologyApi) },
+            ProfileApi::class to { provide(::provideProfileApi) },
+            SettingsApi::class to { provide(::provideSettingsApi) },
+            TaskApi::class to { provide(::provideTaskApi) },
         )
 
         /**
@@ -47,20 +45,16 @@ fun LearnSqlApp.initComponentFactory() {
          * */
         override operator fun <T : Any> get(kClass: KClass<out T>): T? {
             @Suppress("UNCHECKED_CAST")
-            val api = (componentMap[kClass] as? ComponentBuilder<T>)?.invoke() ?: throw ComponentApiException("Component not found for given $kClass")
+            val api = (componentMap[kClass] as? ComponentBuilder<T>)?.invoke()
+                ?: throw ComponentApiException("Component not found for given $kClass")
             return api
         }
 
         /**
          * Provides component on demand without saving state
-         * Note: Working with feature api components
          * */
         override fun <T : Any> provide(provider: (factory: ComponentApiFactory) -> ApiProvider<T>): T {
             return provider.invoke(this).provide()
-        }
-
-        override fun <T : Any> provideWithoutFactory(provider: () -> ApiProvider<T>): T {
-            return provider.invoke().provide()
         }
 
         /**

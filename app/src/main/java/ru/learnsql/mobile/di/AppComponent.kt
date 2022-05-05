@@ -4,6 +4,7 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import ru.learnsql.app_api.AppComponentApi
+import ru.learnsql.mobile.MainActivity
 import javax.inject.Scope
 import javax.inject.Singleton
 
@@ -17,6 +18,7 @@ annotation class AppScope
     modules = [AppModule::class, States::class, BindingsAppModule::class]
 )
 interface AppComponent : AppComponentApi {
+    fun inject(mainActivity: MainActivity)
 
     @Component.Factory
     interface Factory {

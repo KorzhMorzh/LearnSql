@@ -4,16 +4,20 @@ import dagger.BindsInstance
 import dagger.Component
 import ru.learnsql.app_api.ApiProvider
 import ru.learnsql.app_api.AppComponentApi
+import ru.learnsql.app_api.ViewModelModule
 import ru.learnsql.authorizationapi.AuthorizationApi
+import ru.learnsql.course.presentation.CoursesFragment
 import ru.learnsql.courses_api.CoursesApi
 
 @Component(
     modules = [
         CourseModule::class,
-        CourseBindsModule::class
+        CourseBindsModule::class,
+        ViewModelModule::class
     ]
 )
 internal interface CourseComponent {
+    fun inject(coursesFragment: CoursesFragment)
 
     @Component.Factory
     interface Factory {

@@ -18,6 +18,8 @@
         <entry key="app/src/main/res/menu/bottom_navigation.xml" value="0.2143620243778935" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1225" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1225" />
+        <entry key="features/course/src/main/res/drawable/ic_empty_star.xml" value="0.1" />
+        <entry key="features/course/src/main/res/drawable/ic_filled_star.xml" value="0.1" />
         <entry key="features/navigation/src/main/res/drawable/ic_courses.xml" value="0.1805" />
         <entry key="features/navigation/src/main/res/drawable/ic_methodology.xml" value="0.1" />
         <entry key="features/navigation/src/main/res/drawable/ic_settings.xml" value="0.1805" />

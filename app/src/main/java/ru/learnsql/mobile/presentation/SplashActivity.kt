@@ -15,6 +15,6 @@ class SplashActivity : FragmentActivity() {
             .postDelayed({
                 requireApi(apiFactory[NavigationApi::class]).openMainActivity(this)
                 finish()
-            }, 1000)
+            }, 500)
     }
 }

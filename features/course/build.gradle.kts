@@ -21,6 +21,8 @@ dependencies {
     implementation(project(":app-api"))
     implementation(project(":courses-api"))
     implementation(project(":compose"))
+    implementation(project(":appnetwork"))
+    implementation(project(":core"))
 
     implementation("androidx.core:core-ktx")
     implementation("androidx.appcompat:appcompat")

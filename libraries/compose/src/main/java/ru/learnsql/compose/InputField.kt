@@ -5,22 +5,17 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment.Companion.Center
-import androidx.compose.ui.Alignment.Companion.CenterEnd
-import androidx.compose.ui.Alignment.Companion.CenterVertically
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
@@ -66,15 +61,15 @@ fun InputField(
                 Image(
                     painter = painterResource(id = leadingIcon),
                     contentDescription = "",
-                    modifier = Modifier.align(Center),
-                    alignment = Center,
+                    modifier = Modifier.align(Alignment.Center),
+                    alignment = Alignment.Center,
                     colorFilter = ColorFilter.tint(if (value.isNotEmpty()) LightBlue else NonActiveGray)
                 )
                 Box(
                     modifier = Modifier
                         .width(1.dp)
                         .height(50.dp)
-                        .align(CenterEnd)
+                        .align(Alignment.CenterEnd)
                         .background(if (value.isNotEmpty()) LightBlue else NonActiveGray)
                 )
             }
@@ -101,21 +96,4 @@ fun InputField(
         ),
         visualTransformation = visualTransformation
     )
-}
-
-@Composable
-fun AccentButton(@StringRes text: Int, modifier: Modifier, onClick: () -> Unit) {
-    Button(
-        onClick = onClick,
-        modifier = modifier.defaultMinSize(minHeight = 50.dp),
-        shape = RoundedCornerShape(10.dp),
-        colors = ButtonDefaults.buttonColors(backgroundColor = Orange)
-    ) {
-        Text(
-            text = stringResource(id = text),
-            color = Color.White,
-            modifier = Modifier.align(CenterVertically),
-            style = LearnSqlTheme.typography.button
-        )
-    }
 }

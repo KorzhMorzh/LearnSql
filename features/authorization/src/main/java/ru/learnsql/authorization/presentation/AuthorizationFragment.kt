@@ -48,6 +48,7 @@ import ru.learnsql.authorization.presentation.AuthorizationNavigationEvent.OpenR
 import ru.learnsql.compose.AccentButton
 import ru.learnsql.compose.InputField
 import ru.learnsql.compose.R.drawable
+import ru.learnsql.compose.Wrapper
 import ru.learnsql.navigation_api.NavigationApi
 import javax.inject.Inject
 
@@ -73,75 +74,77 @@ class AuthorizationFragment : Fragment() {
             setContent {
                 LearnSqlTheme {
                     val state = viewModel.state
-                    when (state.navigationEvent) {
+                    when (state.value.navigationEvent) {
                         OpenMain -> navigationApi.openMainScreen(findNavController())
                         OpenRegistration -> TODO()
                     }
-                    val screenState = remember(key1 = state.screenState) {
-                        state.screenState
+                    val screenState = remember(key1 = state.value.screenState) {
+                        state.value.screenState
                     }
-                    Surface(
-                        modifier = Modifier.fillMaxSize()
-                    ) {
-                        var passwordVisible: Boolean by rememberSaveable { mutableStateOf(false) }
-                        Column(
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = CenterHorizontally,
-                            modifier = Modifier
-                                .background(brush = BlueGradient)
-                                .padding(start = 25.dp, end = 25.dp, bottom = 40.dp)
+                    Wrapper(showLoader = screenState.loading) {
+                        Surface(
+                            modifier = Modifier.fillMaxSize()
                         ) {
-                            Image(
-                                painter = painterResource(id = drawable.ic_learnsql),
-                                contentDescription = "",
-                                modifier = Modifier.align(CenterHorizontally)
-                            )
-                            InputField(
-                                value = screenState.username,
-                                modifier = Modifier.padding(top = 20.dp),
-                                leadingIcon = drawable.ic_letter,
-                                placeholder = string.login_placeholder,
-                                onValueChange = { viewModel.onUsernameChange(it) })
-                            InputField(
-                                value = screenState.password,
-                                modifier = Modifier.padding(top = 20.dp),
-                                leadingIcon = drawable.ic_lock,
-                                placeholder = string.password_placeholder,
-                                trailingIcon = {
-                                    IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                                        Image(
-                                            painter = painterResource(id = if (passwordVisible) drawable.ic_password_on else drawable.ic_password_off),
-                                            contentDescription = ""
-                                        )
-                                    }
-                                },
-                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                                visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-                                onValueChange = { viewModel.onPasswordChange(it) }
-                            )
-                            AccentButton(
+                            var passwordVisible: Boolean by rememberSaveable { mutableStateOf(false) }
+                            Column(
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = CenterHorizontally,
                                 modifier = Modifier
-                                    .padding(top = 20.dp)
-                                    .fillMaxWidth(),
-                                text = string.login,
-                                onClick = { viewModel.login() }
-                            )
-                            Row(
-                                horizontalArrangement = SpaceBetween,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(top = 10.dp)
+                                    .background(brush = BlueGradient)
+                                    .padding(start = 25.dp, end = 25.dp, bottom = 40.dp)
                             ) {
-                                Text(
-                                    text = stringResource(id = string.signup),
-                                    color = WhiteGray,
-                                    style = LearnSqlTheme.typography.body2
+                                Image(
+                                    painter = painterResource(id = drawable.ic_learnsql),
+                                    contentDescription = "",
+                                    modifier = Modifier.align(CenterHorizontally)
                                 )
-                                Text(
-                                    text = stringResource(id = string.forget_password),
-                                    color = WhiteGray,
-                                    style = LearnSqlTheme.typography.body2
+                                InputField(
+                                    value = screenState.username,
+                                    modifier = Modifier.padding(top = 20.dp),
+                                    leadingIcon = drawable.ic_letter,
+                                    placeholder = string.login_placeholder,
+                                    onValueChange = { viewModel.onUsernameChange(it) })
+                                InputField(
+                                    value = screenState.password,
+                                    modifier = Modifier.padding(top = 20.dp),
+                                    leadingIcon = drawable.ic_lock,
+                                    placeholder = string.password_placeholder,
+                                    trailingIcon = {
+                                        IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                                            Image(
+                                                painter = painterResource(id = if (passwordVisible) drawable.ic_password_on else drawable.ic_password_off),
+                                                contentDescription = ""
+                                            )
+                                        }
+                                    },
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                                    visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                                    onValueChange = { viewModel.onPasswordChange(it) }
                                 )
+                                AccentButton(
+                                    modifier = Modifier
+                                        .padding(top = 20.dp)
+                                        .fillMaxWidth(),
+                                    text = string.login,
+                                    onClick = { viewModel.login() }
+                                )
+                                Row(
+                                    horizontalArrangement = SpaceBetween,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(top = 10.dp)
+                                ) {
+                                    Text(
+                                        text = stringResource(id = string.signup),
+                                        color = WhiteGray,
+                                        style = LearnSqlTheme.typography.body2
+                                    )
+                                    Text(
+                                        text = stringResource(id = string.forget_password),
+                                        color = WhiteGray,
+                                        style = LearnSqlTheme.typography.body2
+                                    )
+                                }
                             }
                         }
                     }

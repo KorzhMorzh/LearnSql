@@ -17,8 +17,8 @@ import ru.learnsql.app_api.theme.LearnSqlTheme
 fun Wrapper(
     modifier: Modifier = Modifier,
     showLoader: Boolean,
-    showError: Boolean,
-    retryAction: () -> Unit,
+    showError: Boolean = false,
+    retryAction: () -> Unit = {},
     content: @Composable () -> Unit
 ) {
     Box(

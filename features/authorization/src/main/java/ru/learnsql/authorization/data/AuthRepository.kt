@@ -45,6 +45,7 @@ internal class AuthRepository @Inject constructor(
     }
 
     fun authenticateByRefreshToken(): String {
-        TODO("update access token")
+        // todo
+        return ""
     }
 }

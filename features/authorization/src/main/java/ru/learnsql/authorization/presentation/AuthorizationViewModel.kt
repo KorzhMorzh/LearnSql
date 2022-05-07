@@ -1,13 +1,13 @@
 package ru.learnsql.authorization.presentation
 
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.learnsql.authorization.domain.AuthorizationUseCase
 import ru.learnsql.authorization.presentation.AuthorizationNavigationEvent.OpenMain
+import ru.learnsql.core.BaseState
+import ru.learnsql.core.BaseViewModel
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -24,16 +24,16 @@ internal data class AuthorizationScreenState(
 )
 
 internal data class AuthorizationState(
-    val navigationEvent: AuthorizationNavigationEvent? = null,
-    val screenState: AuthorizationScreenState
-)
+    override val navigationEvent: AuthorizationNavigationEvent? = null,
+    override val screenState: AuthorizationScreenState
+) : BaseState<AuthorizationNavigationEvent, AuthorizationScreenState>(navigationEvent, screenState)
 
 internal class AuthorizationViewModel @Inject constructor(
     private val authorizationUseCase: AuthorizationUseCase
-) : ViewModel() {
+) : BaseViewModel<AuthorizationNavigationEvent, AuthorizationScreenState>() {
 
-    var state by mutableStateOf(AuthorizationState(screenState = AuthorizationScreenState()))
-        private set
+    override var state: MutableState<BaseState<AuthorizationNavigationEvent, AuthorizationScreenState>> =
+        mutableStateOf(AuthorizationState(screenState = AuthorizationScreenState()))
 
     fun onUsernameChange(username: String) {
         updateScreen {
@@ -53,8 +53,8 @@ internal class AuthorizationViewModel @Inject constructor(
                 updateScreen {
                     copy(loading = true)
                 }
-                authorizationUseCase.login(state.screenState.username, state.screenState.password)
-                state = state.copy(navigationEvent = OpenMain)
+                authorizationUseCase.login(state.value.screenState.username, state.value.screenState.password)
+                state.value = state.value.copy(navigationEvent = OpenMain)
             } catch (ex: Exception) {
                 Timber.e(ex)
                 updateScreen {
@@ -66,11 +66,5 @@ internal class AuthorizationViewModel @Inject constructor(
                 }
             }
         }
-    }
-
-    private fun updateScreen(block: AuthorizationScreenState.() -> AuthorizationScreenState) {
-        state = state.copy(
-            screenState = block(state.screenState)
-        )
     }
 }

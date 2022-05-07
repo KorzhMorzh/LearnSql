@@ -10,12 +10,14 @@ private const val STORAGE_NAME = "SHARED_PREFERENCE"
 class TokenStateImpl(context: Context) : TokenState {
     private val sharedPref = context.getSharedPreferences(STORAGE_NAME, Context.MODE_PRIVATE)
 
-    override var accessToken: String? = sharedPref.getString(KEY_ACCESS_TOKEN, null)
+    override var accessToken: String?
+        get() = sharedPref.getString(KEY_ACCESS_TOKEN, null)
         private set(value) {
             sharedPref.edit().putString(KEY_ACCESS_TOKEN, value).apply()
         }
 
-    override var refreshToken: String? = sharedPref.getString(KEY_REFRESH_TOKEN, null)
+    override var refreshToken: String?
+        get() = sharedPref.getString(KEY_REFRESH_TOKEN, null)
         private set(value) {
             sharedPref.edit().putString(KEY_REFRESH_TOKEN, value).apply()
         }

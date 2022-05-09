@@ -1,6 +1,6 @@
-package ru.learnsql.course.domain
+package ru.learnsql.course.domain.model
 
-import ru.learnsql.course.data.CourseDto
+import ru.learnsql.course.data.dto.CourseDto
 
 data class Course(
     val id: Int,

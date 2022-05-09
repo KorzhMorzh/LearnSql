@@ -16,5 +16,6 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson")
     implementation("com.squareup.retrofit2:retrofit")
     implementation("androidx.compose.ui:ui")
+    implementation("com.google.dagger:dagger")
     implementation(project(":app-api"))
 }

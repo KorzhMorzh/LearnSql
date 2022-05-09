@@ -8,6 +8,7 @@ import ru.learnsql.authorization.domain.AuthorizationUseCase
 import ru.learnsql.authorization.presentation.AuthorizationNavigationEvent.OpenMain
 import ru.learnsql.core.BaseState
 import ru.learnsql.core.BaseViewModel
+import ru.learnsql.core.Event
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -24,7 +25,7 @@ internal data class AuthorizationScreenState(
 )
 
 internal data class AuthorizationState(
-    override val navigationEvent: AuthorizationNavigationEvent? = null,
+    override val navigationEvent: Event<AuthorizationNavigationEvent?> = Event(null),
     override val screenState: AuthorizationScreenState
 ) : BaseState<AuthorizationNavigationEvent, AuthorizationScreenState>(navigationEvent, screenState)
 
@@ -54,7 +55,7 @@ internal class AuthorizationViewModel @Inject constructor(
                     copy(loading = true)
                 }
                 authorizationUseCase.login(state.value.screenState.username, state.value.screenState.password)
-                state.value = state.value.copy(navigationEvent = OpenMain)
+                state.value = state.value.copy(navigationEvent = Event(OpenMain))
             } catch (ex: Exception) {
                 Timber.e(ex)
                 updateScreen {

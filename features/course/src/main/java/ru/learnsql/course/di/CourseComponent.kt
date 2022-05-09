@@ -6,7 +6,8 @@ import ru.learnsql.app_api.ApiProvider
 import ru.learnsql.app_api.AppComponentApi
 import ru.learnsql.app_api.ViewModelModule
 import ru.learnsql.authorizationapi.AuthorizationApi
-import ru.learnsql.course.presentation.CoursesFragment
+import ru.learnsql.course.presentation.courseDetails.CourseDetailsFragment
+import ru.learnsql.course.presentation.courses.CoursesFragment
 import ru.learnsql.courses_api.CoursesApi
 
 @Component(
@@ -18,6 +19,7 @@ import ru.learnsql.courses_api.CoursesApi
 )
 internal interface CourseComponent {
     fun inject(coursesFragment: CoursesFragment)
+    fun inject(coursesDetailsFragment: CourseDetailsFragment)
 
     @Component.Factory
     interface Factory {

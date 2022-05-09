@@ -4,12 +4,12 @@ import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel
 
 abstract class BaseState<T, K>(
-    open val navigationEvent: T? = null,
+    open val navigationEvent: Event<T?> = Event(null),
     open val screenState: K
 ) {
     fun copy(
         screenState: K = this.screenState,
-        navigationEvent: T? = this.navigationEvent
+        navigationEvent: Event<T?> = this.navigationEvent
     ): BaseState<T, K> = object : BaseState<T, K>(navigationEvent, screenState) {}
 }
 

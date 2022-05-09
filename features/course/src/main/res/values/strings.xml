@@ -3,4 +3,15 @@
     <string name="all_courses_title">Все курсы</string>
     <string name="my_courses_title">Мои курсы</string>
     <string name="difficulty">Сложность</string>
+    <string name="enroll_course">Начать курс</string>
+    <string name="course_program">Программа курса</string>
+
+    <plurals name="tasks_completed_count">
+        <item quantity="one">%d / %d задания</item>
+        <item quantity="few">%d / %d заданий</item>
+        <item quantity="many">%d / %d заданий</item>
+        <item quantity="other">%d / %d заданий</item>
+    </plurals>
+
+    <string name="task_number">Задание %d</string>
 </resources>

@@ -1,4 +1,4 @@
-package ru.learnsql.course.data
+package ru.learnsql.course.data.dto
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,10 +1,11 @@
-package ru.learnsql.course.presentation
+package ru.learnsql.course.presentation.courses
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,6 +22,7 @@ import androidx.compose.material.TabRow
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -28,9 +30,11 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import ru.learnsql.app_api.apiFactory
 import ru.learnsql.app_api.getAppComponentApi
 import ru.learnsql.app_api.requireApi
@@ -43,13 +47,15 @@ import ru.learnsql.app_api.theme.LightBlue
 import ru.learnsql.app_api.theme.Yellow
 import ru.learnsql.authorizationapi.AuthorizationApi
 import ru.learnsql.compose.Wrapper
+import ru.learnsql.course.R
 import ru.learnsql.course.R.drawable
 import ru.learnsql.course.R.string
 import ru.learnsql.course.di.DaggerCourseComponent
-import ru.learnsql.course.domain.Course
-import ru.learnsql.course.presentation.CoursesNavigationEvent.OpenCourses
-import ru.learnsql.course.presentation.TabItem.AllCourses
-import ru.learnsql.course.presentation.TabItem.MyCourses
+import ru.learnsql.course.domain.model.Course
+import ru.learnsql.course.presentation.courseDetails.CourseDetailsFragment
+import ru.learnsql.course.presentation.courses.CoursesNavigationEvent.OpenCourseDetails
+import ru.learnsql.course.presentation.courses.TabItem.AllCourses
+import ru.learnsql.course.presentation.courses.TabItem.MyCourses
 import javax.inject.Inject
 
 sealed class TabItem(@StringRes val title: Int, val index: Int) {
@@ -74,9 +80,19 @@ internal class CoursesFragment : Fragment() {
         setContent {
             LearnSqlTheme {
                 val state = viewModel.state
-                if (state.value.navigationEvent == OpenCourses) TODO()
                 val screenState = remember(key1 = state.value.screenState) {
                     state.value.screenState
+                }
+                when (val navEvent = state.value.navigationEvent.take()) {
+                    is OpenCourseDetails -> {
+                        findNavController().navigate(
+                            R.id.toCourseDetailsFragment, bundleOf(
+                                CourseDetailsFragment.COURSE_ID_ARG to navEvent.courseId,
+                                CourseDetailsFragment.COURSE_TITLE_ARG to navEvent.title,
+                            )
+                        )
+                    }
+                    else -> {}
                 }
                 Wrapper(
                     showLoader = screenState.loading,
@@ -101,8 +117,6 @@ internal class CoursesFragment : Fragment() {
 
     @Composable
     fun CoursesTabs(screenState: CoursesScreenState) {
-        //        var selectedIndex by remember { mutableStateOf(screenState.selectedTab) }
-
         TabRow(
             selectedTabIndex = screenState.selectedTab,
             modifier = Modifier
@@ -153,15 +167,16 @@ internal class CoursesFragment : Fragment() {
             Modifier
                 .background(Color.White, RoundedCornerShape(20.dp))
                 .padding()
+                .clickable(enabled = course.isMy) { viewModel.openCourseDetails(course) }
                 .padding(18.dp)
                 .fillMaxWidth()
         ) {
             Text(
                 text = course.title,
                 color = Color.Black,
-                style = LearnSqlTheme.typography.h3
+                style = LearnSqlTheme.typography.h4
             )
-            Row(Modifier.padding(top = 10.dp)) {
+            Row(Modifier.padding(top = 10.dp), verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = stringResource(id = string.difficulty),
                     color = DarkGray,
@@ -175,6 +190,16 @@ internal class CoursesFragment : Fragment() {
                         Icon(painter = painterResource(id = drawable.ic_empty_star), contentDescription = "", tint = Yellow)
                     }
                 }
+            }
+            if (!course.isMy) {
+                Text(
+                    text = stringResource(id = R.string.enroll_course),
+                    modifier = Modifier
+                        .padding(top = 10.dp)
+                        .clickable { viewModel.enrollCourse(course.id) },
+                    color = LearnSqlTheme.colors.secondary,
+                    style = LearnSqlTheme.typography.body1
+                )
             }
         }
     }

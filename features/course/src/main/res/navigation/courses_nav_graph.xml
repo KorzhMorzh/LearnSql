@@ -7,7 +7,27 @@
 
     <fragment
         android:id="@+id/coursesFragment"
-        android:name="ru.learnsql.course.presentation.CoursesFragment"
-        />
+        android:name="ru.learnsql.course.presentation.courses.CoursesFragment"
+        >
+        <action
+            android:id="@+id/toCourseDetailsFragment"
+            app:destination="@id/courseDetailsFragment"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/courseDetailsFragment"
+        android:name="ru.learnsql.course.presentation.courseDetails.CourseDetailsFragment"
+        >
+        <argument
+            android:name="courseId"
+            app:argType="integer"
+            />
+
+        <argument
+            android:name="courseTitle"
+            app:argType="string"
+            />
+    </fragment>
 
 </navigation>

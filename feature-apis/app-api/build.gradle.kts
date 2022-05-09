@@ -31,4 +31,7 @@ dependencies {
 
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.material:material")
+
+    implementation("androidx.navigation:navigation-fragment-ktx")
+    implementation("androidx.navigation:navigation-ui-ktx")
 }

@@ -14,7 +14,7 @@ import javax.inject.Inject
 internal val authenticationLock = Mutex()
 
 private fun parseTokenError(cause: Exception, errorBody: TokenErrorBody) = with(errorBody) {
-    if (error == "authorize.wrong_credentials") {
+    if (error == "invalid_grant") {
         InvalidCredentialsException(this, cause)
     } else {
         TokenRequestException("Request error when getting a token", error, errorDescription, cause)
@@ -30,9 +30,7 @@ internal class AuthRepository @Inject constructor(
             runRequestAndParseErrors(TokenErrorBody::class.java, ::parseTokenError) {
                 authorizationNetworkApi.login(
                     username.toRequestBody(TEXT_PLAIN.toMediaType()),
-                    password.toRequestBody(
-                        TEXT_PLAIN.toMediaType()
-                    )
+                    password.toRequestBody(TEXT_PLAIN.toMediaType())
                 )
             }
         validateAndStoreTokens(accessToken, refreshToken)

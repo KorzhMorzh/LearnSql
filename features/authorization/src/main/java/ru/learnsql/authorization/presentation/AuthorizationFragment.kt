@@ -74,9 +74,10 @@ class AuthorizationFragment : Fragment() {
             setContent {
                 LearnSqlTheme {
                     val state = viewModel.state
-                    when (state.value.navigationEvent) {
+                    when (state.value.navigationEvent.take()) {
                         OpenMain -> navigationApi.openMainScreen(findNavController())
                         OpenRegistration -> TODO()
+                        null -> {}
                     }
                     val screenState = remember(key1 = state.value.screenState) {
                         state.value.screenState

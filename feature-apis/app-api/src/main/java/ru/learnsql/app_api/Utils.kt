@@ -2,10 +2,9 @@ package ru.learnsql.app_api
 
 import android.app.Activity
 import android.app.Application
-import android.app.Service
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import androidx.navigation.fragment.findNavController
 
 fun Fragment.getComponentApiFactory(): ComponentApiFactory {
     return (requireActivity().application as AppProvider).componentApiFactory
@@ -39,4 +38,13 @@ fun Application.getAppComponent(): AppComponentApi {
 
 fun <T : Any> requireApi(api: T?): T {
     return checkNotNull(api)
+}
+
+fun Fragment.back(isFinishActivity: Boolean = true): Boolean {
+    val popBackStackSuccess = findNavController().popBackStack()
+    if (!popBackStackSuccess && isFinishActivity) {
+        requireActivity().finish()
+        return true
+    }
+    return popBackStackSuccess
 }

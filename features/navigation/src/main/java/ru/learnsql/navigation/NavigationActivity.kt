@@ -14,6 +14,7 @@ import ru.learnsql.authorizationapi.AuthorizationApi
 import ru.learnsql.navigation.R.id
 import ru.learnsql.navigation.di.DaggerNavigationComponent
 import ru.learnsql.navigation_api.NavigationApi
+import timber.log.Timber
 import javax.inject.Inject
 
 class NavigationActivity : AppCompatActivity() {
@@ -22,6 +23,8 @@ class NavigationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Timber.plant(Timber.DebugTree());
+
         setContentView(R.layout.main_activity)
         DaggerNavigationComponent.factory().create(
             getAppComponentApi(),

@@ -24,6 +24,7 @@ dependencies {
     implementation(project(":authorization"))
     implementation(project(":course"))
     implementation(project(":methodic"))
+    implementation(project(":task"))
     implementation(project(":settings"))
 
     implementation("androidx.core:core-ktx")

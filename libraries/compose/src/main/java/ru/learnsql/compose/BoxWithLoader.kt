@@ -48,7 +48,7 @@ fun Wrapper(
                     AccentButton(
                         text = R.string.button_retry,
                         modifier = Modifier.wrapContentWidth(),
-                        retryAction
+                        onClick = retryAction
                     )
                 }
             }

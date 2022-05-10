@@ -31,7 +31,7 @@ val Typography = Typography(
     ),
     button = TextStyle(
         fontFamily = Montserrat,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.SemiBold,
         fontSize = 14.sp
     ),
     caption = TextStyle(

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/task_nav_graph"
+    app:startDestination="@id/taskFragment"
+    >
+    <fragment
+        android:id="@+id/taskFragment"
+        android:name="ru.learnsql.task.presentation.TaskFragment"
+        >
+        <argument
+            android:name="taskId"
+            app:argType="integer"
+            />
+        <argument
+            android:name="id"
+            app:argType="integer"
+            />
+        <argument
+            android:name="isResolved"
+            app:argType="boolean"
+            />
+        <argument
+            android:name="solution"
+            app:argType="string"
+            />
+        <argument
+            android:name="taskNumber"
+            app:argType="integer"
+            />
+    </fragment>
+
+</navigation>

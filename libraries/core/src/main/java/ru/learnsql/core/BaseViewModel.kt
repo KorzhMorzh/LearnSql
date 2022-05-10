@@ -3,14 +3,15 @@ package ru.learnsql.core
 import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel
 
-abstract class BaseState<T, K>(
+open class BaseState<T, K>(
     open val navigationEvent: Event<T?> = Event(null),
     open val screenState: K
 ) {
-    fun copy(
+    // override when adding additional fields
+    open fun copy(
         screenState: K = this.screenState,
         navigationEvent: Event<T?> = this.navigationEvent
-    ): BaseState<T, K> = object : BaseState<T, K>(navigationEvent, screenState) {}
+    ): BaseState<T, K> = BaseState(navigationEvent, screenState)
 }
 
 abstract class BaseViewModel<T, K> : ViewModel() {

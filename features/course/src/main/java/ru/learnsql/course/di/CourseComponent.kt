@@ -9,6 +9,7 @@ import ru.learnsql.authorizationapi.AuthorizationApi
 import ru.learnsql.course.presentation.courseDetails.CourseDetailsFragment
 import ru.learnsql.course.presentation.courses.CoursesFragment
 import ru.learnsql.courses_api.CoursesApi
+import ru.learnsql.navigation_api.NavigationApi
 
 @Component(
     modules = [
@@ -25,7 +26,8 @@ internal interface CourseComponent {
     interface Factory {
         fun create(
             @BindsInstance appComponentApi: AppComponentApi,
-            @BindsInstance authApi: AuthorizationApi
+            @BindsInstance authApi: AuthorizationApi,
+            @BindsInstance navigationApi: NavigationApi,
         ): CourseComponent
     }
 }

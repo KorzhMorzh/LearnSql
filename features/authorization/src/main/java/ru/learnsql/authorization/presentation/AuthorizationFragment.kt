@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.SpaceBetween
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -125,7 +126,8 @@ class AuthorizationFragment : Fragment() {
                                 AccentButton(
                                     modifier = Modifier
                                         .padding(top = 20.dp)
-                                        .fillMaxWidth(),
+                                        .fillMaxWidth()
+                                        .defaultMinSize(minHeight = 50.dp),
                                     text = string.login,
                                     onClick = { viewModel.login() }
                                 )

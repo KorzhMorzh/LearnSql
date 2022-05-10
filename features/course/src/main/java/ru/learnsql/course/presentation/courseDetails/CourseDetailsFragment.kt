@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider.Factory
+import androidx.navigation.fragment.findNavController
 import ru.learnsql.app_api.apiFactory
 import ru.learnsql.app_api.back
 import ru.learnsql.app_api.getAppComponentApi
@@ -52,12 +53,16 @@ import ru.learnsql.course.R.string
 import ru.learnsql.course.di.DaggerCourseComponent
 import ru.learnsql.course.domain.model.Task
 import ru.learnsql.course.presentation.courseDetails.CourseDetailsNavigationEvent.OpenTaskDetails
+import ru.learnsql.navigation_api.NavigationApi
 import javax.inject.Inject
 
 class CourseDetailsFragment : Fragment() {
 
     @Inject
     lateinit var abstractFactory: InjectingSavedStateViewModelFactory
+
+    @Inject
+    lateinit var navigationApi: NavigationApi
 
     override fun getDefaultViewModelProviderFactory(): Factory =
         abstractFactory.create(this, arguments)
@@ -68,7 +73,8 @@ class CourseDetailsFragment : Fragment() {
         super.onCreate(savedInstanceState)
         DaggerCourseComponent.factory().create(
             getAppComponentApi(),
-            requireApi(apiFactory[AuthorizationApi::class])
+            requireApi(apiFactory[AuthorizationApi::class]),
+            requireApi(apiFactory[NavigationApi::class])
         ).inject(this)
     }
 
@@ -77,8 +83,18 @@ class CourseDetailsFragment : Fragment() {
             setContent {
                 LearnSqlTheme {
                     val state = viewModel.state
-                    if (state.value.navigationEvent.take() == OpenTaskDetails) {
-                        TODO()
+                    when (val navEvent = state.value.navigationEvent.take()) {
+                        is OpenTaskDetails -> {
+                            navigationApi.openTaskModule(
+                                navEvent.taskId,
+                                navEvent.id,
+                                navEvent.solution,
+                                navEvent.taskNumber,
+                                navEvent.isResolved,
+                                findNavController()
+                            )
+                        }
+                        null -> {}
                     }
                     val screenState = remember(key1 = state.value.screenState) {
                         state.value.screenState
@@ -156,7 +172,14 @@ class CourseDetailsFragment : Fragment() {
 
     @Composable
     private fun TaskItem(task: Task, index: Int) {
-        Row(horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable {
+                    viewModel.openTask(task, index + 1)
+                }) {
             Text(text = stringResource(id = string.task_number, index + 1), color = if (task.isResolved) Green else Color.Black)
             if (task.isResolved) {
                 Icon(painter = painterResource(id = drawable.ic_done), contentDescription = "", tint = Green)

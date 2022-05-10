@@ -19,6 +19,8 @@ android {
 dependencies {
     implementation(project(":authorizationapi"))
     implementation(project(":app-api"))
+    implementation(project(":task-api"))
+    implementation(project(":navigation-api"))
     implementation(project(":courses-api"))
     implementation(project(":compose"))
     implementation(project(":appnetwork"))

@@ -56,6 +56,7 @@ import ru.learnsql.course.presentation.courseDetails.CourseDetailsFragment
 import ru.learnsql.course.presentation.courses.CoursesNavigationEvent.OpenCourseDetails
 import ru.learnsql.course.presentation.courses.TabItem.AllCourses
 import ru.learnsql.course.presentation.courses.TabItem.MyCourses
+import ru.learnsql.navigation_api.NavigationApi
 import javax.inject.Inject
 
 sealed class TabItem(@StringRes val title: Int, val index: Int) {
@@ -72,8 +73,11 @@ internal class CoursesFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DaggerCourseComponent.factory().create(getAppComponentApi(), requireApi(apiFactory[AuthorizationApi::class]))
-            .inject(this)
+        DaggerCourseComponent.factory().create(
+            getAppComponentApi(),
+            requireApi(apiFactory[AuthorizationApi::class]),
+            requireApi(apiFactory[NavigationApi::class])
+        ).inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) = ComposeView(requireContext()).apply {

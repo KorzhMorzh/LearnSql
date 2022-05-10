@@ -9,13 +9,15 @@ data class TaskList(
 )
 
 data class Task(
-    val individualTaskId: Int,
-    val solution: String?,
-    val isResolved: Boolean
+    val taskId: Int,
+    val solution: String,
+    val isResolved: Boolean,
+    val id: Int
 ) {
     constructor(task: TaskDto) : this(
-        individualTaskId = task.taskInSet.id,
-        solution = task.solution,
-        isResolved = task.status == "1"
+        taskId = task.taskInSet.id,
+        solution = task.solution.orEmpty(),
+        isResolved = task.status == "1",
+        id = task.id
     )
 }

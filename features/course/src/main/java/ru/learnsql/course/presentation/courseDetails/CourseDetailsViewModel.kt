@@ -16,10 +16,17 @@ import ru.learnsql.course.domain.GetCourseDetailsUseCase
 import ru.learnsql.course.domain.model.Task
 import ru.learnsql.course.presentation.courseDetails.CourseDetailsFragment.Companion.COURSE_ID_ARG
 import ru.learnsql.course.presentation.courseDetails.CourseDetailsFragment.Companion.COURSE_TITLE_ARG
+import ru.learnsql.course.presentation.courseDetails.CourseDetailsNavigationEvent.OpenTaskDetails
 import timber.log.Timber
 
 internal sealed interface CourseDetailsNavigationEvent {
-    object OpenTaskDetails : CourseDetailsNavigationEvent
+    data class OpenTaskDetails(
+        val taskId: Int,
+        val id: Int,
+        val solution: String,
+        val taskNumber: Int,
+        val isResolved: Boolean,
+    ) : CourseDetailsNavigationEvent
 }
 
 internal data class CourseDetailsScreenState(
@@ -27,7 +34,7 @@ internal data class CourseDetailsScreenState(
     val tasks: List<Task> = listOf(),
     val tasksCount: Int = 0,
     val tasksResolved: Int = 0,
-    val progress: Float = tasksResolved.toFloat() / tasksCount,
+    val progress: Float = 0f,
     val loading: Boolean = false,
     val fail: Boolean = false
 )
@@ -62,7 +69,8 @@ internal class CourseDetailsViewModel @AssistedInject constructor(
                     copy(
                         tasks = courseDetails.tasks,
                         tasksCount = courseDetails.count,
-                        tasksResolved = courseDetails.resolvedCount
+                        tasksResolved = courseDetails.resolvedCount,
+                        progress = courseDetails.resolvedCount.toFloat() / courseDetails.count
                     )
                 }
             } catch (e: Exception) {
@@ -72,6 +80,20 @@ internal class CourseDetailsViewModel @AssistedInject constructor(
                 updateScreen { copy(loading = false) }
             }
         }
+    }
+
+    fun openTask(task: Task, number: Int) {
+        state.value = state.value.copy(
+            navigationEvent = Event(
+                OpenTaskDetails(
+                    task.taskId,
+                    task.id,
+                    task.solution,
+                    number,
+                    task.isResolved
+                )
+            )
+        )
     }
 
     @AssistedFactory

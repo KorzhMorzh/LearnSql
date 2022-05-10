@@ -1,10 +1,10 @@
 package ru.learnsql.compose
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
@@ -12,20 +12,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import ru.learnsql.app_api.theme.Gray
 import ru.learnsql.app_api.theme.LearnSqlTheme
 import ru.learnsql.app_api.theme.Orange
 
 @Composable
-fun AccentButton(@StringRes text: Int, modifier: Modifier, onClick: () -> Unit) {
-    Button(
+fun AccentButton(
+    @StringRes text: Int,
+    modifier: Modifier,
+    isEnabled: Boolean = true,
+    onClick: () -> Unit
+) {
+    OutlinedButton(
         onClick = onClick,
-        modifier = modifier.defaultMinSize(minHeight = 50.dp),
+        modifier = modifier,
         shape = RoundedCornerShape(10.dp),
-        colors = ButtonDefaults.buttonColors(backgroundColor = Orange)
+        enabled = isEnabled,
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = Orange,
+            disabledBackgroundColor = Color.White,
+        ),
+        border = BorderStroke(1.dp, Orange)
     ) {
         Text(
             text = stringResource(id = text),
-            color = Color.White,
+            color = if (isEnabled) Color.White else Gray,
             modifier = Modifier.align(CenterVertically),
             style = LearnSqlTheme.typography.button
         )

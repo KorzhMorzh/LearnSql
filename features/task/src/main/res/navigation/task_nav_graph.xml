@@ -28,6 +28,39 @@
             android:name="taskNumber"
             app:argType="integer"
             />
+
+        <action
+            android:id="@+id/toDatabaseDescriptionFragment"
+            app:destination="@id/databaseDescriptionFragment"
+            />
+        <action
+            android:id="@+id/toDatabaseImageFragment"
+            app:destination="@id/databaseImageFragment"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/databaseDescriptionFragment"
+        android:name="ru.learnsql.task.presentation.database.DatabaseDescriptionFragment"
+        >
+        <argument
+            android:name="databaseDescription"
+            app:argType="string"
+            />
+        <argument
+            android:name="databaseImage"
+            app:argType="string"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/databaseImageFragment"
+        android:name="ru.learnsql.task.presentation.database.DatabaseImageFragment"
+        >
+        <argument
+            android:name="databaseImage"
+            app:argType="string"
+            />
     </fragment>
 
 </navigation>

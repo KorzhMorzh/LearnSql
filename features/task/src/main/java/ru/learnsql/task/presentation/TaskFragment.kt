@@ -4,13 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,13 +29,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider.Factory
+import androidx.navigation.fragment.findNavController
 import ru.learnsql.app_api.apiFactory
 import ru.learnsql.app_api.back
 import ru.learnsql.app_api.getAppComponentApi
 import ru.learnsql.app_api.requireApi
+import ru.learnsql.app_api.theme.Blue
 import ru.learnsql.app_api.theme.BlueGradient
 import ru.learnsql.app_api.theme.Green
 import ru.learnsql.app_api.theme.LearnSqlTheme
@@ -40,6 +46,7 @@ import ru.learnsql.app_api.theme.LightBlue
 import ru.learnsql.app_api.theme.LightGray
 import ru.learnsql.app_api.theme.NonActiveGray
 import ru.learnsql.app_api.theme.Red
+import ru.learnsql.app_api.theme.WhiteBlue
 import ru.learnsql.authorizationapi.AuthorizationApi
 import ru.learnsql.compose.AccentButton
 import ru.learnsql.compose.TopBar
@@ -53,6 +60,8 @@ import ru.learnsql.task.data.dto.TaskStatus.OK
 import ru.learnsql.task.di.DaggerTaskComponent
 import ru.learnsql.task.presentation.TaskNavigationEvent.OpenDatabaseDescription
 import ru.learnsql.task.presentation.TaskNavigationEvent.OpenDatabaseImage
+import ru.learnsql.task.presentation.database.DATABASE_DESCRIPTION_NAV_ARG
+import ru.learnsql.task.presentation.database.DATABASE_IMAGE_NAV_ARG
 import javax.inject.Inject
 
 const val TASK_ID_ARG = "taskId"
@@ -84,8 +93,20 @@ class TaskFragment : Fragment() {
                 LearnSqlTheme {
                     val state = viewModel.state
                     when (val navEvent = state.value.navigationEvent.take()) {
-                        is OpenDatabaseDescription -> TODO()
-                        is OpenDatabaseImage -> TODO()
+                        is OpenDatabaseDescription -> {
+                            findNavController().navigate(
+                                R.id.toDatabaseDescriptionFragment, bundleOf(
+                                    DATABASE_DESCRIPTION_NAV_ARG to navEvent.databaseDescription
+                                )
+                            )
+                        }
+                        is OpenDatabaseImage -> {
+                            findNavController().navigate(
+                                R.id.toDatabaseImageFragment, bundleOf(
+                                    DATABASE_IMAGE_NAV_ARG to navEvent.databaseImage
+                                )
+                            )
+                        }
                         null -> {}
                     }
                     val screenState = remember(key1 = state.value.screenState) {
@@ -131,6 +152,33 @@ class TaskFragment : Fragment() {
     @Composable
     private fun Task(screenState: TaskScreenState) {
         Column {
+            Text(
+                text = stringResource(id = string.database_description),
+                style = LearnSqlTheme.typography.h4,
+                color = Blue,
+                modifier = Modifier
+                    .padding(top = 12.dp)
+                    .clickable {
+                        viewModel.openDatabaseDescription()
+                    }
+            )
+            Box(
+                modifier = Modifier
+                    .padding(top = 12.dp)
+                    .background(WhiteBlue, RoundedCornerShape(5.dp))
+                    .width(116.dp)
+                    .defaultMinSize(minHeight = 30.dp)
+                    .clickable {
+                        viewModel.openDatabaseImage()
+                    },
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = stringResource(id = string.attachment),
+                    style = LearnSqlTheme.typography.body2,
+                    color = LightBlue
+                )
+            }
             Text(
                 text = screenState.taskText,
                 style = LearnSqlTheme.typography.body1,

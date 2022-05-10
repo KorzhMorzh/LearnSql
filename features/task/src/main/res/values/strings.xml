@@ -6,4 +6,7 @@
     <string name="student_result">Ваш запрос</string>
     <string name="incorrect">Ошибка!</string>
     <string name="correct">Правильно!</string>
+    <string name="database">База данных</string>
+    <string name="database_description">Описание базы данных</string>
+    <string name="attachment">Вложение</string>
 </resources>

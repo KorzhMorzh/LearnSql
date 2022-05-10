@@ -25,4 +25,6 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.material:material")
     implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("io.coil-kt:coil-compose:2.0.0")
+    implementation("com.jakewharton.timber:timber")
 }

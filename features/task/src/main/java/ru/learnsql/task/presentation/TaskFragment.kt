@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,6 +18,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -24,13 +26,17 @@ import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider.Factory
 import androidx.navigation.fragment.findNavController
@@ -53,7 +59,9 @@ import ru.learnsql.compose.TopBar
 import ru.learnsql.compose.Wrapper
 import ru.learnsql.compose.gridItems
 import ru.learnsql.core.InjectingSavedStateViewModelFactory
+import ru.learnsql.navigation_api.UPDATE_SCREEN_ON_BACK
 import ru.learnsql.task.R
+import ru.learnsql.task.R.drawable
 import ru.learnsql.task.R.string
 import ru.learnsql.task.data.dto.TaskStatus.ERROR
 import ru.learnsql.task.data.dto.TaskStatus.OK
@@ -85,6 +93,7 @@ class TaskFragment : Fragment() {
             getAppComponentApi(),
             requireApi(apiFactory[AuthorizationApi::class])
         ).inject(this)
+        setFragmentResult(UPDATE_SCREEN_ON_BACK, bundleOf())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
@@ -152,33 +161,61 @@ class TaskFragment : Fragment() {
     @Composable
     private fun Task(screenState: TaskScreenState) {
         Column {
-            Text(
-                text = stringResource(id = string.database_description),
-                style = LearnSqlTheme.typography.h4,
-                color = Blue,
-                modifier = Modifier
-                    .padding(top = 12.dp)
-                    .clickable {
-                        viewModel.openDatabaseDescription()
-                    }
-            )
-            Box(
-                modifier = Modifier
-                    .padding(top = 12.dp)
-                    .background(WhiteBlue, RoundedCornerShape(5.dp))
-                    .width(116.dp)
-                    .defaultMinSize(minHeight = 30.dp)
-                    .clickable {
-                        viewModel.openDatabaseImage()
-                    },
-                contentAlignment = Alignment.Center
-            ) {
+            if (screenState.hasDatabaseDescription || screenState.hasDatabaseImage){
                 Text(
-                    text = stringResource(id = string.attachment),
-                    style = LearnSqlTheme.typography.body2,
-                    color = LightBlue
+                    text = stringResource(id = string.database),
+                    style = LearnSqlTheme.typography.h4,
+                    modifier = Modifier.padding(top = 14.dp).align(CenterHorizontally),
+                    color = Color.Black
                 )
             }
+            if (screenState.hasDatabaseDescription) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .padding(top = 12.dp)
+                        .clickable { viewModel.openDatabaseDescription() }
+                ) {
+                    Icon(painter = painterResource(id = drawable.ic_database), contentDescription = "", tint = LightBlue)
+                    Text(
+                        text = stringResource(id = string.database_description),
+                        style = LearnSqlTheme.typography.body2,
+                        color = Blue,
+                        modifier = Modifier.padding(start = 3.dp).weight(1f),
+                    )
+                    Icon(
+                        painter = painterResource(id = ru.learnsql.compose.R.drawable.ic_crop_right_arrow),
+                        contentDescription = "",
+                        tint = LightBlue,
+                        modifier = Modifier.padding(start = 5.dp)
+                    )
+                }
+            }
+            if (screenState.hasDatabaseImage) {
+                Box(
+                    modifier = Modifier
+                        .padding(top = 12.dp)
+                        .background(WhiteBlue, RoundedCornerShape(5.dp))
+                        .width(116.dp)
+                        .defaultMinSize(minHeight = 30.dp)
+                        .clickable {
+                            viewModel.openDatabaseImage()
+                        },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = stringResource(id = string.attachment),
+                        style = LearnSqlTheme.typography.body2,
+                        color = LightBlue
+                    )
+                }
+            }
+            Text(
+                text = stringResource(id = string.task),
+                style = LearnSqlTheme.typography.h4,
+                modifier = Modifier.padding(top = 14.dp).align(CenterHorizontally),
+                color = Color.Black
+            )
             Text(
                 text = screenState.taskText,
                 style = LearnSqlTheme.typography.body1,
@@ -202,16 +239,18 @@ class TaskFragment : Fragment() {
                 isError = screenState.status == ERROR,
                 shape = RoundedCornerShape(8.dp)
             )
-            AccentButton(
-                text = string.do_task,
-                isEnabled = screenState.isButtonEnabled,
-                modifier = Modifier
-                    .align(Alignment.End)
-                    .padding(top = 12.dp)
-                    .defaultMinSize(minHeight = 32.dp)
-                    .align(Alignment.End)
-            ) {
-                viewModel.doTask()
+            if (screenState.status != OK) {
+                AccentButton(
+                    text = string.do_task,
+                    isEnabled = screenState.isButtonEnabled,
+                    modifier = Modifier
+                        .align(Alignment.End)
+                        .padding(top = 12.dp)
+                        .defaultMinSize(minHeight = 32.dp)
+                        .align(Alignment.End)
+                ) {
+                    viewModel.doTask()
+                }
             }
             when (screenState.status) {
                 OK -> {
@@ -248,7 +287,7 @@ class TaskFragment : Fragment() {
             Text(
                 text = stringResource(id = if (isStudentResult) string.student_result else string.expected_result),
                 color = Color.Black,
-                style = LearnSqlTheme.typography.body2,
+                style = LearnSqlTheme.typography.h4,
                 modifier = Modifier.padding(top = 12.dp)
             )
         }

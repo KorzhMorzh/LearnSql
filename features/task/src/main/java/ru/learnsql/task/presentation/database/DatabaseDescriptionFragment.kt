@@ -61,6 +61,7 @@ class DatabaseDescriptionFragment : Fragment() {
             TextView(context).apply {
                 setText(HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY))
                 setTextColor(resources.getColor(android.R.color.black))
+                setTextIsSelectable(true)
             }
         }, modifier = Modifier.padding(top = 12.dp))
     }

@@ -20,6 +20,7 @@ dependencies {
     implementation(project(":authorizationapi"))
     implementation(project(":app-api"))
     implementation(project(":task-api"))
+    implementation(project(":navigation-api"))
     implementation(project(":compose"))
     implementation(project(":core"))
 

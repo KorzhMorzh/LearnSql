@@ -10,11 +10,11 @@ import javax.inject.Inject
 class DoTaskUseCase @Inject constructor(
     private val taskNetworkApi: TaskNetworkApi
 ) {
-    suspend fun doTask(solution: String, taskId: Int, status: Boolean, id: Int): TaskAnswer {
+    suspend fun doTask(solution: String, taskId: Int, id: Int): TaskAnswer {
         val response = taskNetworkApi.doTask(
             solution.toRequestBody(TEXT_PLAIN.toMediaType()),
             taskId.toString().toRequestBody(TEXT_PLAIN.toMediaType()),
-            (if (status) "1" else "0").toRequestBody(TEXT_PLAIN.toMediaType()),
+            "1".toRequestBody(TEXT_PLAIN.toMediaType()),
             id.toString().toRequestBody(TEXT_PLAIN.toMediaType()),
         )
         return TaskAnswer.map(response)

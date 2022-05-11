@@ -31,6 +31,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.clearFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider.Factory
 import androidx.navigation.fragment.findNavController
@@ -54,6 +56,7 @@ import ru.learnsql.course.di.DaggerCourseComponent
 import ru.learnsql.course.domain.model.Task
 import ru.learnsql.course.presentation.courseDetails.CourseDetailsNavigationEvent.OpenTaskDetails
 import ru.learnsql.navigation_api.NavigationApi
+import ru.learnsql.navigation_api.UPDATE_SCREEN_ON_BACK
 import javax.inject.Inject
 
 class CourseDetailsFragment : Fragment() {
@@ -78,8 +81,12 @@ class CourseDetailsFragment : Fragment() {
         ).inject(this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
-        ComposeView(requireContext()).apply {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): ComposeView {
+        setFragmentResultListener(UPDATE_SCREEN_ON_BACK) { _, _ ->
+            viewModel.getCourseDetails()
+            clearFragmentResult(UPDATE_SCREEN_ON_BACK)
+        }
+        return ComposeView(requireContext()).apply {
             setContent {
                 LearnSqlTheme {
                     val state = viewModel.state
@@ -169,6 +176,7 @@ class CourseDetailsFragment : Fragment() {
                 }
             }
         }
+    }
 
     @Composable
     private fun TaskItem(task: Task, index: Int) {

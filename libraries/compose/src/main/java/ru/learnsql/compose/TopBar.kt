@@ -39,7 +39,9 @@ fun TopBar(
             color = Color.White,
             style = LearnSqlTheme.typography.h2,
             textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(end = 42.dp)
         )
 
     }

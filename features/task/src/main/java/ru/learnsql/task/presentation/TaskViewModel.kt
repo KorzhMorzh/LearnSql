@@ -34,6 +34,8 @@ internal data class TaskScreenState(
     val studentResult: List<List<Any>>? = null,
     val status: TaskStatus? = null,
     val message: String? = null,
+    val hasDatabaseDescription: Boolean = false,
+    val hasDatabaseImage: Boolean = false,
     val isButtonEnabled: Boolean = false,
     val isResolved: Boolean = false,
     val loading: Boolean = false,
@@ -79,7 +81,11 @@ internal class TaskViewModel @AssistedInject constructor(
                 updateScreen { copy(loading = true) }
                 loadTaskUseCase.loadTask(taskId).let {
                     updateScreen {
-                        copy(taskText = it.taskText)
+                        copy(
+                            taskText = it.taskText,
+                            hasDatabaseDescription = it.dataBaseDescription.isNotEmpty(),
+                            hasDatabaseImage = it.databaseImage.isNotEmpty()
+                        )
                     }
                     validateSolution(state.value.screenState.solution)
                     dataBaseDescription = it.dataBaseDescription
@@ -100,7 +106,7 @@ internal class TaskViewModel @AssistedInject constructor(
             try {
                 updateScreen { copy(loading = true) }
                 val screenState = state.value.screenState
-                doTaskUseCase.doTask(screenState.solution, taskId, screenState.isResolved, id).let {
+                doTaskUseCase.doTask(screenState.solution, taskId, id).let {
                     taskAnswer = it
                     updateScreen {
                         copy(
@@ -144,7 +150,7 @@ internal class TaskViewModel @AssistedInject constructor(
 
     private fun validateSolution(solution: String) {
         updateScreen {
-            copy(isButtonEnabled = solution.contains(requiredWords, true) && status != OK)
+            copy(isButtonEnabled = solution.contains(requiredWords, true))
         }
     }
 

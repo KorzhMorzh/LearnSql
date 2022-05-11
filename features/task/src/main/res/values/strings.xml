@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="task_number">Задание %d</string>
+    <string name="task">Задание</string>
     <string name="do_task">Выполнить</string>
     <string name="expected_result">Правильный запрос</string>
     <string name="student_result">Ваш запрос</string>

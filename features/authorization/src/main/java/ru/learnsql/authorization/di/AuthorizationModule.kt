@@ -54,6 +54,14 @@ internal class AuthorizationModule {
     fun provideTokenState(componentApi: AppComponentApi) = componentApi.tokenState()
 
     @Provides
+    @Reusable
+    fun provideUserInfoState(componentApi: AppComponentApi) = componentApi.userInfoState()
+
+    @Provides
+    @Reusable
+    fun provideStateProvider(componentApi: AppComponentApi) = componentApi.stateProvider()
+
+    @Provides
     @Authenticated
     fun provideAuthenticatedOkHttp(componentApi: AppComponentApi, tokenInterceptor: TokenInterceptor) =
         createAuthenticatedClient(componentApi, tokenInterceptor)

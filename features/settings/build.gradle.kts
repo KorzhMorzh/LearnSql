@@ -20,7 +20,9 @@ dependencies {
     implementation(project(":authorizationapi"))
     implementation(project(":app-api"))
     implementation(project(":settings-api"))
+    implementation(project(":navigation-api"))
     implementation(project(":compose"))
+    implementation(project(":core"))
 
     implementation("androidx.core:core-ktx")
     implementation("androidx.appcompat:appcompat")

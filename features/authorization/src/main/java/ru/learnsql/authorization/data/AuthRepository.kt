@@ -6,6 +6,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import ru.learnsql.app_api.const.TEXT_PLAIN
 import ru.learnsql.app_api.state.TokenState
+import ru.learnsql.app_api.state.UserInfoState
 import ru.learnsql.authorization.data.dto.TokenErrorBody
 import ru.learnsql.authorization.domain.InvalidCredentialsException
 import ru.learnsql.authorization.domain.TokenRequestException
@@ -23,6 +24,7 @@ private fun parseTokenError(cause: Exception, errorBody: TokenErrorBody) = with(
 
 internal class AuthRepository @Inject constructor(
     private val tokenState: TokenState,
+    private val userInfoState: UserInfoState,
     private val authorizationNetworkApi: AuthorizationNetworkApi
 ) {
     suspend fun login(username: String, password: String) = authenticationLock.withLock {
@@ -34,8 +36,13 @@ internal class AuthRepository @Inject constructor(
                 )
             }
         validateAndStoreTokens(accessToken, refreshToken)
+        getUserInfo(accessToken)
 
         accessToken
+    }
+
+    private suspend fun getUserInfo(token: String) {
+        userInfoState.current = authorizationNetworkApi.getUserInformation("Bearer $token")
     }
 
     private fun validateAndStoreTokens(accessToken: String, refreshToken: String?) {

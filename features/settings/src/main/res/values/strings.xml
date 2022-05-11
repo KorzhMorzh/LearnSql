@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="profile">Профиль</string>
+    <string name="FAQ">FAQ</string>
+    <string name="feedback">Обратная связь</string>
+    <string name="logout">Выйти</string>
+
+    <string name="FAQ_first_title">В чем предназначение ресурса?</string>
+    <string name="FAQ_first_description">Данный ресурс предназначен для получения базовых и углубленных навыков работы с языком SQL</string>
+    <string name="FAQ_second_title">Для кого подойдут эти курсы?</string>
+    <string name="FAQ_second_description">Платформа может использоваться для подготовки специалистов высшего, среднего профессионального и дополнительного профессионального образования, а также всеми желающими освоить SQL.</string>
+    <string name="FAQ_third_title">Зачем разработчику изучать базы данных?</string>
+    <string name="FAQ_third_description">Базы данных — это организованная специальным образом структура, которая умеет хранить, обрабатывать и изменять информацию в различных объемах. Если вы будете делать веб-приложение — например интернет-магазин, блог или игры, — почти наверняка вы столкнётесь с базой данных.</string>
+    <string name="FAQ_fourth_title">Почему именно SQL?</string>
+    <string name="FAQ_fourth_description">SQL — языка для общения с базами данных. Зная синтаксис написания SQL-запроосов, вы сможете работать с любой СУБД: SQLite, MySQL, PostgreSQL, Microsoft SQL Server, Oracle.</string>
+
+    <string name="feedback_description">Перед тем, как задать вопрос, убедитесь, что его нет в списке частых вопросов</string>
+    <string name="feedback_theme">Тема</string>
+    <string name="feedback_send">Отправить</string>
+    <string name="feedback_sent_success">Сообщение успешно отправлено!</string>
+    <string name="feedback_sent_error">Не удалось отправить сообщение</string>
+    <string name="feedback_body">Для улучшения качества сервиса, вы можете отправить нам пожелания, рекомендации, которые мы обязательно рассмотрим. Спасибо!</string>
+</resources>

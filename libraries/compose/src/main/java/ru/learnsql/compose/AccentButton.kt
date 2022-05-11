@@ -21,6 +21,8 @@ fun AccentButton(
     @StringRes text: Int,
     modifier: Modifier,
     isEnabled: Boolean = true,
+    disabledBackgroundColor: Color = Color.White,
+    disabledTextColor: Color = Gray,
     onClick: () -> Unit
 ) {
     OutlinedButton(
@@ -30,13 +32,13 @@ fun AccentButton(
         enabled = isEnabled,
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Orange,
-            disabledBackgroundColor = Color.White,
+            disabledBackgroundColor = disabledBackgroundColor,
         ),
         border = BorderStroke(1.dp, Orange)
     ) {
         Text(
             text = stringResource(id = text),
-            color = if (isEnabled) Color.White else Gray,
+            color = if (isEnabled) Color.White else disabledTextColor,
             modifier = Modifier.align(CenterVertically),
             style = LearnSqlTheme.typography.button
         )

@@ -9,6 +9,7 @@ import ru.learnsql.app_api.BuildInfo
 import ru.learnsql.app_api.RetrofitFactory
 import ru.learnsql.app_api.state.StateProvider
 import ru.learnsql.app_api.state.TokenState
+import ru.learnsql.app_api.state.UserInfoState
 import ru.learnsql.appnetwork.RetrofitFactoryImpl
 import ru.learnsql.mobile.state.StateProviderImpl
 import ru.learnsql.navigation.NavigationApiImpl
@@ -44,4 +45,7 @@ internal class States {
 
     @Provides
     fun provideTokenState(stateProvider: StateProvider): TokenState = stateProvider.token
+
+    @Provides
+    fun provideUserInfoState(stateProvider: StateProvider): UserInfoState = stateProvider.userInfo
 }

@@ -35,7 +35,9 @@ import ru.learnsql.app_api.getAppComponentApi
 import ru.learnsql.app_api.requireApi
 import ru.learnsql.app_api.theme.BlueGradient
 import ru.learnsql.app_api.theme.Gray
+import ru.learnsql.app_api.theme.Green
 import ru.learnsql.app_api.theme.LearnSqlTheme
+import ru.learnsql.app_api.theme.Red
 import ru.learnsql.authorizationapi.AuthorizationApi
 import ru.learnsql.compose.AccentButton
 import ru.learnsql.compose.TopBar
@@ -143,6 +145,15 @@ class FeedbackFragment : Fragment() {
                                         Text(text = stringResource(id = string.feedback_body), style = LearnSqlTheme.typography.body1, color = Gray)
                                     }
                                 )
+
+                                if (screenState.fail || screenState.success) {
+                                    Text(
+                                        text = stringResource(id = if (screenState.fail) string.feedback_sent_error else string.feedback_sent_success),
+                                        color = if (screenState.fail) Red else Green,
+                                        modifier = Modifier.padding(top = 11.dp),
+                                        style = LearnSqlTheme.typography.body2
+                                    )
+                                }
 
                                 AccentButton(
                                     text = string.feedback_send,

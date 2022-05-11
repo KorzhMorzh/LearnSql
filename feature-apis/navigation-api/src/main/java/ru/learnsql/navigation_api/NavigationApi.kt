@@ -10,4 +10,5 @@ interface NavigationApi {
     fun openAuthorization(navController: NavController)
     fun openMainScreen(navController: NavController)
     fun openTaskModule(taskId: Int, id: Int, solution: String, taskNumber: Int, isResolved: Boolean, navController: NavController)
+    fun openProfileModule(navController: NavController)
 }

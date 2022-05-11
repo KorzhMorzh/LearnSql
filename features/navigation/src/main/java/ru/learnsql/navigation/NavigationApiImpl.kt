@@ -36,4 +36,8 @@ class NavigationApiImpl @Inject internal constructor() : NavigationApi {
             )
         )
     }
+
+    override fun openProfileModule(navController: NavController) {
+        navController.navigate(R.id.toProfileFragment)
+    }
 }

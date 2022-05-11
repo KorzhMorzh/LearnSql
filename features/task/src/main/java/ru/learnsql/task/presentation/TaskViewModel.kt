@@ -78,7 +78,7 @@ internal class TaskViewModel @AssistedInject constructor(
     fun loadTask() {
         viewModelScope.launch {
             try {
-                updateScreen { copy(loading = true) }
+                updateScreen { copy(loading = true, fail = false) }
                 loadTaskUseCase.loadTask(taskId).let {
                     updateScreen {
                         copy(
@@ -104,7 +104,7 @@ internal class TaskViewModel @AssistedInject constructor(
     fun doTask() {
         viewModelScope.launch {
             try {
-                updateScreen { copy(loading = true) }
+                updateScreen { copy(loading = true, fail = false) }
                 val screenState = state.value.screenState
                 doTaskUseCase.doTask(screenState.solution, taskId, id).let {
                     taskAnswer = it

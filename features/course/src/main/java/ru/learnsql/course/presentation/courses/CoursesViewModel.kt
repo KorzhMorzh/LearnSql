@@ -49,7 +49,7 @@ internal class CoursesViewModel @Inject constructor(
     fun getCourses() {
         viewModelScope.launch {
             try {
-                updateScreen { copy(loading = true) }
+                updateScreen { copy(loading = true, fail = false) }
                 getCoursesUseCase.getCourses().let { (allCourses, myCourses) ->
                     updateScreen { copy(loading = false, myCourses = myCourses, allCourses = allCourses) }
                 }
@@ -79,7 +79,7 @@ internal class CoursesViewModel @Inject constructor(
     fun enrollCourse(courseId: Int) {
         viewModelScope.launch {
             try {
-                updateScreen { copy(loading = true) }
+                updateScreen { copy(loading = true, fail = false) }
                 enrollCourseUseCase.enrollCourse(courseId)
                 getCourses()
             } catch (e: Exception) {

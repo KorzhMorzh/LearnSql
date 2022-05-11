@@ -80,7 +80,9 @@ class SettingsFragment : Fragment() {
                     OpenFeedback -> {
                         findNavController().navigate(R.id.toFeedbackFragment)
                     }
-                    OpenProfile -> TODO()
+                    OpenProfile -> {
+                        navigationApi.openProfileModule(findNavController())
+                    }
                     OpenAuthorization -> {
                         authorizationApi.logout(findNavController())
                     }

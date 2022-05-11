@@ -26,6 +26,7 @@ dependencies {
     implementation(project(":methodic"))
     implementation(project(":task"))
     implementation(project(":settings"))
+    implementation(project(":profile"))
 
     implementation("androidx.core:core-ktx")
     implementation("androidx.appcompat:appcompat")

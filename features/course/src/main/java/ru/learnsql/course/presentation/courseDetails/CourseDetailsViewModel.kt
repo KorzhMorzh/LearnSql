@@ -63,7 +63,7 @@ internal class CourseDetailsViewModel @AssistedInject constructor(
     fun getCourseDetails() {
         viewModelScope.launch {
             try {
-                updateScreen { copy(loading = true) }
+                updateScreen { copy(loading = true, fail = false) }
                 val courseDetails = getCourseDetailsUseCase.getCourseDetails(courseId)
                 updateScreen {
                     copy(

@@ -29,6 +29,7 @@ internal data class FeedbackScreenState(
     val body: String = "",
     val loading: Boolean = false,
     val fail: Boolean = false,
+    val success: Boolean = false,
     val isButtonEnabled: Boolean = false
 )
 
@@ -54,12 +55,13 @@ internal class FeedbackViewModel @Inject constructor(
     fun sendFeedback() {
         viewModelScope.launch {
             try {
-                updateScreen { copy(loading = true) }
+                updateScreen { copy(loading = true, fail = false, success = false) }
                 sendFeedbackUseCase.sendFeedback(
                     state.value.screenState.theme,
                     state.value.screenState.body
                 )
                 showSnackBar(SUCCESS)
+                updateScreen { copy(success = true) }
             } catch (ex: Exception) {
                 Timber.e(ex)
                 showSnackBar(ERROR)
@@ -70,12 +72,12 @@ internal class FeedbackViewModel @Inject constructor(
     }
 
     fun onThemeChanged(theme: String) {
-        updateScreen { copy(theme = theme) }
+        updateScreen { copy(theme = theme, success = false, fail = false) }
         validateButton()
     }
 
     fun onBodyChanged(body: String) {
-        updateScreen { copy(body = body) }
+        updateScreen { copy(body = body, success = false, fail = false) }
         validateButton()
     }
 

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/profile_nav_graph"
+    app:startDestination="@id/profileFragment"
+    >
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="ru.learnsql.profile.presentation.ProfileFragment"
+        >
+        <action
+            android:id="@+id/toEditPasswordFragment"
+            app:destination="@id/editPasswordFragment"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editPasswordFragment"
+        android:name="ru.learnsql.profile.presentation.editpassword.EditPasswordFragment"
+        />
+
+</navigation>

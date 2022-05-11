@@ -10,6 +10,7 @@
     <include app:graph="@navigation/methodology_nav_graph"/>
     <include app:graph="@navigation/settings_nav_graph"/>
     <include app:graph="@navigation/task_nav_graph"/>
+    <include app:graph="@navigation/profile_nav_graph"/>
 
     <action
         android:id="@+id/toAuthorizationFragment"
@@ -30,6 +31,11 @@
     <action
         android:id="@+id/toTaskDetailFragment"
         app:destination="@id/task_nav_graph"
+        />
+
+    <action
+        android:id="@+id/toProfileFragment"
+        app:destination="@id/profile_nav_graph"
         />
 
 </navigation>

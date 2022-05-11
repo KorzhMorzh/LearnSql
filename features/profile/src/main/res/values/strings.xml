@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="profile">Профиль</string>
+    <string name="username">Login</string>
+    <string name="email">E-mail</string>
+    <string name="first_name">Имя</string>
+    <string name="last_name">Фамилия</string>
+    <string name="group_number">Номер группы</string>
+    <string name="change_password">Изменить пароль</string>
+    <string name="change_button">Изменить</string>
+    <string name="old_password">Старый пароль</string>
+    <string name="new_password">Пароль</string>
+    <string name="repeat_password">Повторите пароль</string>
+    <string name="edit_password_error">Не удалось обновить пароль</string>
+    <string name="edit_password_success">Пароль успешно обновлен</string>
+    <string name="edit_profile_error">Не удалось обновить информацию профиля</string>
+    <string name="edit_profile_success">Информация профиля успешно обновлена</string>
+</resources>

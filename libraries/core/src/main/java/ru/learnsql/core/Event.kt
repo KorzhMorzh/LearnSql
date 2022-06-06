@@ -21,7 +21,8 @@ open class Event<out T>(private val content: T) {
 
     override fun toString() = "Event: ${content.toString()} [consumed: $consumed]"
 
-    override fun equals(other: Any?) = this === other || other is Event<*> && content == other.content && consumed == other.consumed
+    override fun equals(other: Any?) =
+        this === other || other is Event<*> && content == other.content && consumed == other.consumed
 
     override fun hashCode(): Int {
         var result = content?.hashCode() ?: 0

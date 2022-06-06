@@ -188,9 +188,15 @@ class CourseDetailsFragment : Fragment() {
                 .clickable {
                     viewModel.openTask(task, index + 1)
                 }) {
-            Text(text = stringResource(id = string.task_number, index + 1), color = if (task.isResolved) Green else Color.Black)
+            Text(
+                text = stringResource(id = string.task_number, index + 1),
+                color = if (task.isResolved) Green else Color.Black
+            )
             if (task.isResolved) {
-                Icon(painter = painterResource(id = drawable.ic_done), contentDescription = "", tint = Green)
+                Icon(
+                    painter = painterResource(id = drawable.ic_done),
+                    contentDescription = "", tint = Green
+                )
             }
         }
     }

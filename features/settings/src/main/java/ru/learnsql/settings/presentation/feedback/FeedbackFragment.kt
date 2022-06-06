@@ -69,121 +69,124 @@ class FeedbackFragment : Fragment() {
         ).inject(this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) = ComposeView(requireContext()).apply {
-        setContent {
-            LearnSqlTheme {
-                val state = viewModel.state
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
+        ComposeView(requireContext()).apply {
+            setContent {
+                LearnSqlTheme {
+                    val state = viewModel.state
 
-                when (val navEvent = state.value.navigationEvent.take()) {
-                    OpenFAQ -> {
-                        findNavController().navigate(R.id.toFAQFragment)
+                    when (state.value.navigationEvent.take()) {
+                        OpenFAQ -> {
+                            findNavController().navigate(R.id.toFAQFragment)
+                        }
+                        is ShowSnackBar -> {}
+                        null -> {}
                     }
-                    is ShowSnackBar -> {
-                        // todo
+                    val screenState = remember(key1 = state.value.screenState) {
+                        state.value.screenState
                     }
-                    null -> {}
-                }
-                val screenState = remember(key1 = state.value.screenState) {
-                    state.value.screenState
-                }
-                Wrapper(showLoader = screenState.loading) {
-                    Surface(
-                        modifier = Modifier.fillMaxSize(),
-                    ) {
-                        Column(
-                            modifier = Modifier.background(BlueGradient),
+                    Wrapper(showLoader = screenState.loading) {
+                        Surface(
+                            modifier = Modifier.fillMaxSize(),
                         ) {
-                            TopBar(title = stringResource(id = string.feedback)) {
-                                back()
-                            }
                             Column(
-                                modifier = Modifier
-                                    .verticalScroll(rememberScrollState())
-                                    .padding(start = 25.dp, end = 25.dp, bottom = 25.dp)
+                                modifier = Modifier.background(BlueGradient),
                             ) {
-                                Text(
-                                    text = stringResource(id = string.feedback_description),
-                                    color = Color.White,
-                                    style = LearnSqlTheme.typography.body1,
-                                    modifier = Modifier
-                                        .align(Alignment.CenterHorizontally)
-                                        .padding(start = 25.dp, end = 25.dp),
-                                    textAlign = TextAlign.Center
-                                )
-
-                                OutlinedTextField(
-                                    value = screenState.theme,
-                                    onValueChange = viewModel::onThemeChanged, modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(top = 15.dp)
-                                        .background(Color.White, RoundedCornerShape(6.dp))
-                                        .defaultMinSize(minHeight = 40.dp),
-                                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                                        textColor = Color.Black,
-                                    ),
-                                    shape = RoundedCornerShape(6.dp),
-                                    singleLine = true,
-                                    textStyle = LearnSqlTheme.typography.h4,
-                                    placeholder = {
-                                        Text(text = stringResource(id = string.feedback_theme), style = LearnSqlTheme.typography.h4, color = Gray)
-                                    }
-                                )
-
-                                OutlinedTextField(
-                                    value = screenState.body,
-                                    onValueChange = viewModel::onBodyChanged, modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(top = 12.dp)
-                                        .background(Color.White, RoundedCornerShape(6.dp))
-                                        .defaultMinSize(minHeight = 200.dp),
-                                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                                        textColor = Color.Black,
-                                    ),
-                                    shape = RoundedCornerShape(6.dp),
-                                    textStyle = LearnSqlTheme.typography.body1,
-                                    placeholder = {
-                                        Text(text = stringResource(id = string.feedback_body), style = LearnSqlTheme.typography.body1, color = Gray)
-                                    }
-                                )
-
-                                if (screenState.fail || screenState.success) {
-                                    Text(
-                                        text = stringResource(id = if (screenState.fail) string.feedback_sent_error else string.feedback_sent_success),
-                                        color = if (screenState.fail) Red else Green,
-                                        modifier = Modifier.padding(top = 11.dp),
-                                        style = LearnSqlTheme.typography.body2
-                                    )
+                                TopBar(title = stringResource(id = string.feedback)) {
+                                    back()
                                 }
-
-                                AccentButton(
-                                    text = string.feedback_send,
-                                    isEnabled = screenState.isButtonEnabled,
+                                Column(
                                     modifier = Modifier
-                                        .align(Alignment.End)
-                                        .padding(top = 27.dp)
-                                        .defaultMinSize(minHeight = 42.dp)
-                                        .fillMaxWidth(),
-                                    disabledBackgroundColor = Color(android.R.color.transparent),
-                                    disabledTextColor = Color.White
+                                        .verticalScroll(rememberScrollState())
+                                        .padding(start = 25.dp, end = 25.dp, bottom = 25.dp)
                                 ) {
-                                    viewModel.sendFeedback()
+                                    Text(
+                                        text = stringResource(id = string.feedback_description),
+                                        color = Color.White,
+                                        style = LearnSqlTheme.typography.body1,
+                                        modifier = Modifier
+                                            .align(Alignment.CenterHorizontally)
+                                            .padding(start = 25.dp, end = 25.dp),
+                                        textAlign = TextAlign.Center
+                                    )
+
+                                    OutlinedTextField(
+                                        value = screenState.theme,
+                                        onValueChange = viewModel::onThemeChanged, modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(top = 15.dp)
+                                            .background(Color.White, RoundedCornerShape(6.dp))
+                                            .defaultMinSize(minHeight = 40.dp),
+                                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                                            textColor = Color.Black,
+                                        ),
+                                        shape = RoundedCornerShape(6.dp),
+                                        singleLine = true,
+                                        textStyle = LearnSqlTheme.typography.h4,
+                                        placeholder = {
+                                            Text(text = stringResource(id = string.feedback_theme), style = LearnSqlTheme.typography.h4, color = Gray)
+                                        }
+                                    )
+
+                                    OutlinedTextField(
+                                        value = screenState.body,
+                                        onValueChange = viewModel::onBodyChanged, modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(top = 12.dp)
+                                            .background(Color.White, RoundedCornerShape(6.dp))
+                                            .defaultMinSize(minHeight = 200.dp),
+                                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                                            textColor = Color.Black,
+                                        ),
+                                        shape = RoundedCornerShape(6.dp),
+                                        textStyle = LearnSqlTheme.typography.body1,
+                                        placeholder = {
+                                            Text(
+                                                text = stringResource(id = string.feedback_body),
+                                                style = LearnSqlTheme.typography.body1,
+                                                color = Gray
+                                            )
+                                        }
+                                    )
+
+                                    if (screenState.fail || screenState.success) {
+                                        Text(
+                                            text = stringResource(id = if (screenState.fail) string.feedback_sent_error else string.feedback_sent_success),
+                                            color = if (screenState.fail) Red else Green,
+                                            modifier = Modifier.padding(top = 11.dp),
+                                            style = LearnSqlTheme.typography.body2
+                                        )
+                                    }
+
+                                    AccentButton(
+                                        text = string.feedback_send,
+                                        isEnabled = screenState.isButtonEnabled,
+                                        modifier = Modifier
+                                            .align(Alignment.End)
+                                            .padding(top = 27.dp)
+                                            .defaultMinSize(minHeight = 42.dp)
+                                            .fillMaxWidth(),
+                                        disabledBackgroundColor = Color(android.R.color.transparent),
+                                        disabledTextColor = Color.White
+                                    ) {
+                                        viewModel.sendFeedback()
+                                    }
+
+                                    Text(
+                                        text = stringResource(id = string.FAQ),
+                                        color = Color.White,
+                                        style = LearnSqlTheme.typography.h4,
+                                        modifier = Modifier
+                                            .align(Alignment.End)
+                                            .padding(top = 12.dp)
+                                            .clickable { viewModel.openFAQ() }
+                                    )
+
                                 }
-
-                                Text(
-                                    text = stringResource(id = string.FAQ),
-                                    color = Color.White,
-                                    style = LearnSqlTheme.typography.h4,
-                                    modifier = Modifier
-                                        .align(Alignment.End)
-                                        .padding(top = 12.dp)
-                                        .clickable { viewModel.openFAQ() }
-                                )
-
                             }
                         }
                     }
                 }
             }
         }
-    }
 }

@@ -59,7 +59,6 @@ internal class TaskViewModel @AssistedInject constructor(
 
     private var dataBaseDescription: String = ""
     private var databaseImage: String = ""
-    private var requiredWords: String = ""
     private var taskAnswer: TaskAnswer? = null
 
     init {
@@ -90,7 +89,6 @@ internal class TaskViewModel @AssistedInject constructor(
                     validateSolution(state.value.screenState.solution)
                     dataBaseDescription = it.dataBaseDescription
                     databaseImage = it.databaseImage
-                    requiredWords = it.requiredWords
                 }
             } catch (e: Exception) {
                 Timber.e(e)
@@ -150,7 +148,7 @@ internal class TaskViewModel @AssistedInject constructor(
 
     private fun validateSolution(solution: String) {
         updateScreen {
-            copy(isButtonEnabled = solution.contains(requiredWords, true))
+            copy(isButtonEnabled = solution.isNotEmpty())
         }
     }
 

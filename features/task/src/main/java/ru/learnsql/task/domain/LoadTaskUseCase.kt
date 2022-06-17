@@ -11,7 +11,7 @@ class LoadTaskUseCase @Inject constructor(
         val task = taskNetworkApi.loadTask(taskId)
         // May the Lord forgive me for this (2)
         // because receive url starts with http
-        val databaseImage = if (!task.databaseImage.contains("https")) {
+        val databaseImage = if (task.databaseImage?.contains("https") == false) {
             task.databaseImage.replace("http", "https")
         } else {
             task.databaseImage

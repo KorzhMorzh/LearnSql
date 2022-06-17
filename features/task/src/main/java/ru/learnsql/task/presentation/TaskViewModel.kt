@@ -82,13 +82,13 @@ internal class TaskViewModel @AssistedInject constructor(
                     updateScreen {
                         copy(
                             taskText = it.taskText,
-                            hasDatabaseDescription = it.dataBaseDescription.isNotEmpty(),
-                            hasDatabaseImage = it.databaseImage.isNotEmpty()
+                            hasDatabaseDescription = !it.dataBaseDescription.isNullOrEmpty(),
+                            hasDatabaseImage = !it.databaseImage.isNullOrEmpty()
                         )
                     }
                     validateSolution(state.value.screenState.solution)
-                    dataBaseDescription = it.dataBaseDescription
-                    databaseImage = it.databaseImage
+                    dataBaseDescription = it.dataBaseDescription ?: ""
+                    databaseImage = it.databaseImage ?: ""
                 }
             } catch (e: Exception) {
                 Timber.e(e)

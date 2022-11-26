@@ -47,7 +47,7 @@ class DatabaseDescriptionFragment : Fragment() {
                                 .fillMaxSize()
                                 .verticalScroll(rememberScrollState())
                         ) {
-                            val description: String = requireArguments()[DATABASE_DESCRIPTION_NAV_ARG].toString()
+                            val description: String = arguments?.getString(DATABASE_DESCRIPTION_NAV_ARG).orEmpty()
                             Html(text = description)
                         }
                     }

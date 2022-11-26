@@ -32,7 +32,7 @@ class DatabaseImageFragment : Fragment() {
                         TopBar(title = stringResource(id = string.database)) {
                             back()
                         }
-                        ZoomableImage(url = requireArguments()[DATABASE_IMAGE_NAV_ARG]!!.toString())
+                        ZoomableImage(url = arguments?.getString(DATABASE_IMAGE_NAV_ARG).orEmpty())
                     }
                 }
             }

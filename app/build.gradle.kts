@@ -30,6 +30,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = composeVersion
     }
+    namespace = "ru.learnsql.mobile"
 }
 
 kapt {

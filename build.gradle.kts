@@ -3,13 +3,13 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
 buildscript {
 
-    val kotlinVersion by extra("1.6.10")
-    val composeVersion by extra("1.1.1")
+    val kotlinVersion by extra("1.7.10")
+    val composeVersion by extra("1.3.1")
 
     val addBuildScriptDependencies by extra(
         fun ScriptHandlerScope.() {
             dependencies {
-                classpath("com.android.tools.build:gradle:7.1.2")
+                classpath("com.android.tools.build:gradle:7.3.1")
                 classpath("com.google.dagger:hilt-android-gradle-plugin:2.38.1")
                 classpath(kotlin("gradle-plugin", version = kotlinVersion))
                 classpath(kotlin("serialization", version = kotlinVersion)) // Must be here (not in settings.gradle.kts) for the IDE to detect it
@@ -22,11 +22,11 @@ buildscript {
 val configureAndroidOptions by extra(
     fun Project.() {
         extensions.configure<BaseExtension> {
-            compileSdkVersion(31)
+            compileSdkVersion(33)
 
             defaultConfig {
                 minSdk = 21
-                targetSdk = 30
+                targetSdk = 33
 
                 testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
             }
@@ -59,8 +59,8 @@ val configureAndroidOptions by extra(
     }
 )
 plugins {
-    id("com.android.application") version "7.1.2" apply false
-    id("com.android.library") version "7.1.2" apply false
+    id("com.android.application") version "7.3.1" apply false
+    id("com.android.library") version "7.3.1" apply false
     id("org.jetbrains.kotlin.android") version "1.6.10" apply false
 }
 
